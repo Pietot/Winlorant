@@ -46,7 +46,6 @@ function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?in
         $date = $key["meta"]["started_at"];
         $date = strtotime($date);
         if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest)) {
-            echo "nigger";
             continue;
         }
         $day = get_day_by_timestamp($date);
