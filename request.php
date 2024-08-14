@@ -27,24 +27,8 @@ function get_request_json(string $name, string $tag): ?array
     if (curl_errno($curl_handle)) {
         return null;
     }
+
     curl_close($curl_handle);
-
     $data = json_decode($response, true);
-
     return $data;
-}
-
-function get_day_by_date($date_iso) {
-    $date_obj = new DateTime($date_iso);
-    $day = $date_obj->format('l');
-
-    return $day;
-}
-
-
-$game_json = get_request_json($NAME, $TAG);
-
-foreach ($game_json["data"] as $key) {
-    $date = $key["meta"]["started_at"];
-    echo "Day: " . get_day_by_date($date) . "<br>";
 }
