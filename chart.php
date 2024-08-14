@@ -5,6 +5,8 @@ include_once "request.php";
 $name = "Plouf VoltaniX";
 $tag = "0000";
 
+$game_json = get_request_json($name, $tag);
+
 function get_day_by_timestamp($timestamp)
 {
     $date_obj = new DateTime();
@@ -25,6 +27,7 @@ function has_win(array $data): bool
 
 function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?int $newest = null): array
 {
+    global $game_json;
     $win_per_day = array(
         "Monday" => [0, 0],
         "Tuesday" => [0, 0],
@@ -35,7 +38,7 @@ function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?in
         "Sunday" => [0, 0]
     );
 
-    $game_json = get_request_json($name, $tag);
+    
     foreach ($game_json["data"] as $key) {
         $date = $key["meta"]["started_at"];
         $date = strtotime($date);
