@@ -39,8 +39,10 @@ def get_day_by_date(date_iso: str) -> str:
     return day
 
 
-gameJson = get_request_json(f"https://api.henrikdev.xyz/valorant/v1/stored-matches/eu/{NAME}/{TAG}")
+game_json = get_request_json(
+    f"https://api.henrikdev.xyz/valorant/v1/stored-matches/eu/{NAME}/{TAG}"
+)
 
-for key in gameJson["data"]:
+for key in game_json["data"]:
     date = key["meta"]["started_at"]
     print(get_day_by_date(date))
