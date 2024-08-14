@@ -3,9 +3,6 @@
 define("API_KEY", "HDEV-284f2d01-91dd-40a7-b52b-5ae7dbbe1309");
 define("API_URL", "https://api.henrikdev.xyz/valorant/v1/stored-matches/eu/");
 
-$NAME = "Plouf VoltaniX";
-$TAG = "9168";
-
 function get_request_json(string $name, string $tag): ?array
 {
     $url_with_key = API_URL . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . API_KEY;
@@ -20,10 +17,8 @@ function get_request_json(string $name, string $tag): ?array
 
     ));
 
-    // Exécution de la requête
     $response = curl_exec($curl_handle);
 
-    // Vérification des erreurs
     if (curl_errno($curl_handle)) {
         return null;
     }
