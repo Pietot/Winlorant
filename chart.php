@@ -5,16 +5,12 @@ include_once "request.php";
 $name = "Plouf VoltaniX";
 $tag = "0000";
 
-function get_day_by_date($date_iso)
-{
-    $date_obj = new DateTime($date_iso);
-    $day = $date_obj->format('l');
-    return $day;
-}
-
 function get_day_by_timestamp($timestamp)
 {
-    return date('l', $timestamp);
+    $date_obj = new DateTime();
+    $date_obj->setTimestamp($timestamp);
+    $day = $date_obj->format('l');
+    return $day;
 }
 
 function has_win(array $data): bool
@@ -55,7 +51,7 @@ function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?in
         if ($value[1] === 0) {
             $win_per_day[$day] = "No games played";
         } else {
-            $win_per_day[$day] = round($value[0] / $value[1] * 100, 2) . "%";
+            $win_per_day[$day] = round($value[0] / $value[1] * 100) . "%";
         }
     }
 
