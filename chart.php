@@ -5,8 +5,6 @@ include_once "request.php";
 $name = "Plouf VoltaniX";
 $tag = "0000";
 
-$game_json = get_request_json($name, $tag);
-
 function get_day_by_date($date_iso)
 {
     $date_obj = new DateTime($date_iso);
