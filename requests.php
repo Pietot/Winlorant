@@ -1,22 +1,18 @@
 <?php
 
 define("API_KEY", "HDEV-284f2d01-91dd-40a7-b52b-5ae7dbbe1309");
+define("API_URL", "https://api.henrikdev.xyz/valorant/v1/stored-matches/eu/");
 
 $NAME = "Plouf VoltaniX";
 $TAG = "9168";
 
-if (function_exists('curl_version')) {
-    echo 'cURL is installed and enabled';
-} else {
-    echo 'cURL is not installed or enabled';
-}
-
-function get_request_json($url)
+function get_request_json(string $name, string $tag): ?array
 {
+    $url_with_key = API_URL . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . API_KEY;
     $curl_handle = curl_init();
 
     // Options cURL
-    curl_setopt($curl_handle, CURLOPT_URL, $url . '?api_key=' . API_KEY);
+    curl_setopt($curl_handle, CURLOPT_URL, $url_with_key);
     curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl_handle, CURLOPT_TIMEOUT, 30);
     curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array(
@@ -29,7 +25,7 @@ function get_request_json($url)
 
     // Vérification des erreurs
     if (curl_errno($curl_handle)) {
-        echo 'Erreur cURL : ' . curl_error($curl_handle);
+        return null;
     }
     curl_close($curl_handle);
 
@@ -38,4 +34,17 @@ function get_request_json($url)
     return $data;
 }
 
-echo get_request_json("https://api.henrikdev.xyz/valorant/v1/stored-matches/eu/" . $NAME . "/" . $TAG);
+function get_day_by_date($date_iso) {
+    $date_obj = new DateTime($date_iso);
+    $day = $date_obj->format('l');
+
+    return $day;
+}
+
+
+$game_json = get_request_json($NAME, $TAG);
+
+foreach ($game_json["data"] as $key) {
+    $date = $key["meta"]["started_at"];
+    echo "Day: " . get_day_by_date($date) . "<br>";
+}
