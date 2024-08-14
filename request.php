@@ -7,8 +7,10 @@ function get_request_json(string $name, string $tag): ?array
 {
     $url_with_key = API_URL . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . API_KEY;
     $curl_handle = curl_init();
-
+    
     // Options cURL
+    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl_handle, CURLOPT_SSL_VERIFYHOST, false);
     curl_setopt($curl_handle, CURLOPT_URL, $url_with_key);
     curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($curl_handle, CURLOPT_TIMEOUT, 30);
