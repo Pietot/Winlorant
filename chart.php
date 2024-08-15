@@ -5,24 +5,35 @@ include_once "request.php";
 $name = "Plouf VoltaniX";
 $tag = "0000";
 
-$game_json = get_request_json($name, $tag);
+define("GAME_JSON", get_request_json($name, $tag));
 
-
-
-// Competitive of unrated
 function get_number_game()
 {
-    global $game_json;
     $nb_game = 0;
-    foreach ($game_json["data"] as $key) 
-    {
-        $mode = $key["meta"]["mode"];
-        if ($mode == "Competitive" || $mode == "Unrated") 
-        { 
+    foreach (GAME_JSON["data"] as $key) {
+        if (is_competitive($key) || is_unrated($key)) {
             $nb_game += 1;
         }
     }
     return $nb_game;
+}
+
+function is_competitive(array $data): bool
+{
+    $mode = $data["meta"]["mode"];
+    if ($mode === "Competitive") {
+        return true;
+    }
+    return false;
+}
+
+function is_unrated(array $data): bool
+{
+    $mode = $data["meta"]["mode"];
+    if ($mode === "Unrated") {
+        return true;
+    }
+    return false;
 }
 
 function get_day_by_timestamp($timestamp)
@@ -43,10 +54,9 @@ function has_win(array $data): bool
     return false;
 };
 
-function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?int $newest = null): array
+function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
 {
-    global $game_json;
-    
+
     $win_per_day = array(
         "Monday" => [0, 0],
         "Tuesday" => [0, 0],
@@ -57,11 +67,10 @@ function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?in
         "Sunday" => [0, 0]
     );
 
-    
-    foreach ($game_json["data"] as $key) {
-        $mode = $key["meta"]["mode"];
-        if ($mode != "Competitive" && $mode != "Unrated") { 
-            continue; 
+
+    foreach (GAME_JSON["data"] as $key) {
+        if (!is_competitive($key) && !is_unrated($key)) {
+            continue;
         }
 
         $date = $key["meta"]["started_at"];
@@ -79,8 +88,7 @@ function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?in
     foreach ($win_per_day as $day => $value) {
         if ($value[1] === 0) {
             $win_per_day[$day] = "No games played";
-        } 
-        else {
+        } else {
             $win_per_day[$day] = round($value[0] / $value[1] * 100) . "%";
         }
     }
@@ -90,4 +98,4 @@ function get_winrate_per_day(string $name, string $tag, ?int $oldest = null, ?in
 
 echo "<h2>" . get_number_game() . " parties ont été analysé. Ce nombre sera actualisé automatiquement tous les dimanches.</h2><br>";
 
-print_r(get_winrate_per_day($name, $tag));
+print_r(get_winrate_per_day());
