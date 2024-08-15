@@ -1,0 +1,2 @@
+Add filter for competitive matches or not
+Add region tu display good hours and display
