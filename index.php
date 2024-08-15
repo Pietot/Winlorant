@@ -1,3 +1,10 @@
+<?php
+include_once "php/chart.php";
+
+
+echo "<h1>" . get_number_game() . " parties ont été analysé. Ce nombre sera actualisé automatiquement tous les dimanches.</h1><br>";
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -6,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Graphique en courbe</title>
     <link rel="stylesheet" href="css/chart.css" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css" />
 </head>
 
 <body>
