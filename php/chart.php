@@ -96,6 +96,3 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
     return $win_per_day;
 }
 
-echo "<h2>" . get_number_game() . " parties ont été analysé. Ce nombre sera actualisé automatiquement tous les dimanches.</h2><br>";
-
-print_r(get_winrate_per_day());
