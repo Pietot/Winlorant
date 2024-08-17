@@ -10,15 +10,27 @@ function verifyLowestWinrate(data) {
 function addOffset(data) {
   needPadding = true;
   data.forEach((element, index) => {
-    if (element !== true) {
+    if (element !== null) {
       data[index] = element + offset;
+    } else {
+      data[index] = 1 + offset;
     }
   });
   return data;
 }
 
+function verifyIndexNullValue(data) {
+  for (let index = 0; index < data.length; index++) {
+    let element = data[index];
+    if (element === null) {
+      return index;
+    }
+  }
+  return false;
+}
+
 function getData() {
-  return [true, 0.01, 0.3, 0.4, 0.5, 0.6, 1];
+  return [null, 0.2, 0.3, 0.4, 0.5, 0.6, 1];
 }
 
 function drawZebraStripes(context, strokeStyle) {
@@ -59,15 +71,16 @@ const COLORS = [
 
 let offset = 0;
 let needPadding = false;
+let nullIndex = false;
 const ctx = document.getElementById("myChart").getContext("2d");
 const DATA = (function () {
   let data = getData();
+  nullIndex = verifyIndexNullValue(data);
   if (verifyLowestWinrate(data)) {
     offset = 0.1;
     needPadding = true;
     return addOffset(data);
   }
-  console.log(data);
   return data;
 })();
 
@@ -88,7 +101,7 @@ const myChart = new Chart(ctx, {
         data: DATA,
         backgroundColor: function (context) {
           let value =
-            context.raw === true
+            context.dataIndex === nullIndex
               ? true
               : Math.round((context.raw - offset) * 100) / 100;
           const alpha = 0.4;
@@ -102,7 +115,7 @@ const myChart = new Chart(ctx, {
         },
         borderColor: function (context) {
           let value =
-            context.raw === true
+            context.dataIndex === nullIndex
               ? true
               : Math.round((context.raw - offset) * 100) / 100;
 
@@ -114,19 +127,19 @@ const myChart = new Chart(ctx, {
         },
         borderWidth: 3,
         hoverBackgroundColor: function (context) {
-          if (context.raw === true) {
+          if (context.dataIndex === nullIndex) {
             return drawZebraStripes(context, "rgb(100, 100, 100)");
           }
           return context.dataset.borderColor(context);
         },
         hoverBorderColor: function (context) {
-          if (context.raw === true) {
+          if (context.dataIndex === nullIndex) {
             return "rgb(100, 100, 100)";
           }
           return context.dataset.borderColor(context);
         },
         hoverBorderWidth: function (context) {
-          return context.raw === true ? 3 : 0;
+          return context.dataIndex === nullIndex ? 3 : 0;
         },
       },
     ],
