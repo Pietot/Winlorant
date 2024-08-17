@@ -1,11 +1,11 @@
 <?php
 
-include_once "request.php";
+include_once "get_data_json.php";
 
 $name = "Plouf VoltaniX";
 $tag = "0000";
 
-define("GAME_JSON", get_request_json($name, $tag));
+define("GAME_JSON", get_data_json($name, $tag));
 
 function get_number_game()
 {

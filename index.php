@@ -21,8 +21,7 @@ echo "<h1>" . get_number_game() . " parties ont été analysé. Ce nombre sera a
         <canvas id="myChart"></canvas>
     </div>
     <script src="js/chart.min.js"></script>
-    <script src="js/chart_configuration.js">
-    </script>
+    <script src="js/chart_configuration.js"></script>
 </body>
 
 </html>
