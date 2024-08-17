@@ -1,6 +1,6 @@
 function verifyLowestWinrate(data) {
   for (let element of data) {
-    if (element < 0.1) {
+    if (element !== null && element < 0.1) {
       return true;
     }
   }
@@ -8,10 +8,9 @@ function verifyLowestWinrate(data) {
 }
 
 function addOffset(data) {
-  needPadding = true;
   data.forEach((element, index) => {
     if (element !== null) {
-      data[index] = element + offset;
+      data[index] = Math.round((element + offset) * 100) / 100;
     } else {
       data[index] = 1 + offset;
     }
@@ -20,17 +19,45 @@ function addOffset(data) {
 }
 
 function verifyIndexNullValue(data) {
+  let nullIndexs = [];
   for (let index = 0; index < data.length; index++) {
     let element = data[index];
     if (element === null) {
-      return index;
+      nullIndexs.push(index);
     }
   }
-  return false;
+  return nullIndexs == 0 ? false : nullIndexs;
 }
 
-function getData() {
-  return [null, 0.2, 0.3, 0.4, 0.5, 0.6, 1];
+async function getData() {
+  try {
+    const response = await fetch("php/get_winrate_json.php");
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    const data = await response.json();
+    let winrates = [];
+    let days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+    ];
+
+    days.forEach((day) => {
+      if (data[day] === "No games played") {
+        winrates.push(null);
+      } else {
+        winrates.push(parseFloat(data[day]) / 100);
+      }
+    });
+    return winrates;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
 }
 
 function drawZebraStripes(context, strokeStyle) {
@@ -71,138 +98,138 @@ const COLORS = [
 
 let offset = 0;
 let needPadding = false;
-let nullIndex = false;
 const ctx = document.getElementById("myChart").getContext("2d");
-const DATA = (function () {
-  let data = getData();
-  nullIndex = verifyIndexNullValue(data);
+
+(async function () {
+  let data = await getData();
+  let nullIndexs = verifyIndexNullValue(data);
+
+  nullIndexs.forEach((index) => {
+    data[index] = 1;
+  });
+
   if (verifyLowestWinrate(data)) {
     offset = 0.1;
     needPadding = true;
-    return addOffset(data);
+    data = addOffset(data);
   }
-  return data;
-})();
 
-const myChart = new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday",
-    ],
-    datasets: [
-      {
-        data: DATA,
-        backgroundColor: function (context) {
-          let value =
-            context.dataIndex === nullIndex
+  const myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      datasets: [
+        {
+          data: data,
+          backgroundColor: function (context) {
+            let value = nullIndexs.includes(context.dataIndex)
               ? true
               : Math.round((context.raw - offset) * 100) / 100;
-          const alpha = 0.4;
-
-          if (value === true) {
-            return drawZebraStripes(context, "rgb(150, 150, 150)");
-          }
-          let index = Math.floor(value * 10);
-          let rgb = COLORS[index].match(/\d+/g);
-          return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
-        },
-        borderColor: function (context) {
-          let value =
-            context.dataIndex === nullIndex
+            const alpha = 0.4;
+            if (value === true) {
+              return drawZebraStripes(context, "rgb(150, 150, 150)");
+            }
+            let index = Math.floor(value * 10);
+            let rgb = COLORS[index].match(/\d+/g);
+            return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
+          },
+          borderColor: function (context) {
+            let value = nullIndexs.includes(context.dataIndex)
               ? true
               : Math.round((context.raw - offset) * 100) / 100;
 
-          if (value === true) {
-            return "rgb(150, 150, 150)";
-          }
-          let index = Math.floor(value * 10);
-          return COLORS[index];
-        },
-        borderWidth: 3,
-        hoverBackgroundColor: function (context) {
-          if (context.dataIndex === nullIndex) {
-            return drawZebraStripes(context, "rgb(100, 100, 100)");
-          }
-          return context.dataset.borderColor(context);
-        },
-        hoverBorderColor: function (context) {
-          if (context.dataIndex === nullIndex) {
-            return "rgb(100, 100, 100)";
-          }
-          return context.dataset.borderColor(context);
-        },
-        hoverBorderWidth: function (context) {
-          return context.dataIndex === nullIndex ? 3 : 0;
-        },
-      },
-    ],
-  },
-  options: {
-    scales: {
-      x: {
-        grid: {
-          color: function (context) {
-            if (context.tick && context.tick.value === 0) {
-              return "rgba(255, 255, 255, 0.5)";
+            if (value === true) {
+              return "rgb(150, 150, 150)";
             }
-            return "rgba(255, 255, 255, 0.0)";
+            let index = Math.floor(value * 10);
+            return COLORS[index];
           },
-        },
-        ticks: {
-          color: "rgba(255, 255, 255, 0.7)",
-          font: {
-            size: 20,
-          },
-        },
-      },
-      y: {
-        beginAtZero: true,
-        max: function () {
-          return needPadding ? 1 + offset : 1;
-        },
-        min: 0,
-        ticks: {
-          callback: function (value) {
-            if (value === 0 && needPadding) {
-              return "";
+          borderWidth: 3,
+          hoverBackgroundColor: function (context) {
+            if (nullIndexs.includes(context.dataIndex)) {
+              return drawZebraStripes(context, "rgb(100, 100, 100)");
             }
-            return Math.round((value - offset) * 100) + "%";
+            return context.dataset.borderColor(context);
           },
-          stepSize: 0.1,
-          color: "rgba(255, 255, 255, 0.7)",
-          font: {
-            size: 20,
+          hoverBorderColor: function (context) {
+            if (nullIndexs.includes(context.dataIndex)) {
+              return "rgb(100, 100, 100)";
+            }
+            return context.dataset.borderColor(context);
+          },
+          hoverBorderWidth: function (context) {
+            return nullIndexs.includes(context.dataIndex) ? 3 : 0;
           },
         },
-        grid: {
-          color: "rgba(255, 255, 255, 0.5)",
-        },
-      },
+      ],
     },
-    plugins: {
-      legend: {
-        display: false,
+    options: {
+      scales: {
+        x: {
+          grid: {
+            color: function (context) {
+              if (context.tick && context.tick.value === 0) {
+                return "rgba(255, 255, 255, 0.5)";
+              }
+              return "rgba(255, 255, 255, 0.0)";
+            },
+          },
+          ticks: {
+            color: "rgba(255, 255, 255, 0.7)",
+            font: {
+              size: 20,
+            },
+          },
+        },
+        y: {
+          beginAtZero: true,
+          max: function () {
+            return needPadding ? 1 + offset : 1;
+          },
+          min: 0,
+          ticks: {
+            callback: function (value) {
+              if (value === 0 && needPadding) {
+                return "";
+              }
+              return Math.round((value - offset) * 100) + "%";
+            },
+            stepSize: 0.1,
+            color: "rgba(255, 255, 255, 0.7)",
+            font: {
+              size: 20,
+            },
+          },
+          grid: {
+            color: "rgba(255, 255, 255, 0.5)",
+          },
+        },
       },
-      tooltip: {
-        callbacks: {
-          label: function (context) {
-            let value =
-              context.dataIndex === nullIndex
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              let value = nullIndexs.includes(context.dataIndex)
                 ? true
                 : Math.round((context.raw - offset) * 100);
-            return value !== true
-              ? " Winrate: " + Math.round(value) + "%"
-              : " No match played for this day.";
+              return value !== true
+                ? " Winrate: " + Math.round(value) + "%"
+                : " No match played for this day.";
+            },
           },
         },
       },
     },
-  },
-});
+  });
+})();
