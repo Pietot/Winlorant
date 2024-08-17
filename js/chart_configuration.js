@@ -194,7 +194,7 @@ const myChart = new Chart(ctx, {
         callbacks: {
           label: function (context) {
             let value =
-              context.raw === true
+              context.dataIndex === nullIndex
                 ? true
                 : Math.round((context.raw - offset) * 100);
             return value !== true
