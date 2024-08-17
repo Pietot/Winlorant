@@ -56,7 +56,6 @@ function has_win(array $data): bool
 
 function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
 {
-
     $win_per_day = array(
         "Monday" => [0, 0],
         "Tuesday" => [0, 0],
@@ -64,9 +63,11 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
         "Thursday" => [0, 0],
         "Friday" => [0, 0],
         "Saturday" => [0, 0],
-        "Sunday" => [0, 0]
+        "Sunday" => [0, 0],
     );
 
+    $totalWins = 0;
+    $totalGames = 0;
 
     foreach (GAME_JSON["data"] as $key) {
         if (!is_competitive($key) && !is_unrated($key)) {
@@ -89,10 +90,21 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
         if ($value[1] === 0) {
             $win_per_day[$day] = "No games played";
         } else {
-            $win_per_day[$day] = round($value[0] / $value[1] * 100) . "%";
+            $winrate = ($value[0] / $value[1] * 100);
+            $win_per_day[$day] = $winrate . "%";
+
+            $totalWins += $value[0];
+            $totalGames += $value[1];
         }
     }
 
+    if ($totalGames > 0) {
+        $averageWinrate = ($totalWins / $totalGames * 100) . "%";
+    } else {
+        $averageWinrate = "No games played";
+    }
+
+    $win_per_day["Global"] = $averageWinrate;
+
     return $win_per_day;
 }
-
