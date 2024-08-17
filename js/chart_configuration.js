@@ -10,7 +10,7 @@ function verifyLowestWinrate(data) {
 function addOffset(data) {
   data.forEach((element, index) => {
     if (element !== null) {
-      data[index] = Math.round((element + offset) * 100) / 100;
+      data[index] = element + offset;
     } else {
       data[index] = 1 + offset;
     }
@@ -45,6 +45,7 @@ async function getData() {
       "Friday",
       "Saturday",
       "Sunday",
+      "Global",
     ];
 
     days.forEach((day) => {
@@ -114,7 +115,7 @@ const ctx = document.getElementById("myChart").getContext("2d");
     data = addOffset(data);
   }
 
-  const myChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: "bar",
     data: {
       labels: [
@@ -125,6 +126,7 @@ const ctx = document.getElementById("myChart").getContext("2d");
         "Friday",
         "Saturday",
         "Sunday",
+        "Global",
       ],
       datasets: [
         {
@@ -132,7 +134,7 @@ const ctx = document.getElementById("myChart").getContext("2d");
           backgroundColor: function (context) {
             let value = nullIndexs.includes(context.dataIndex)
               ? true
-              : Math.round((context.raw - offset) * 100) / 100;
+              : context.raw - offset;
             const alpha = 0.4;
             if (value === true) {
               return drawZebraStripes(context, "rgb(150, 150, 150)");
@@ -144,7 +146,7 @@ const ctx = document.getElementById("myChart").getContext("2d");
           borderColor: function (context) {
             let value = nullIndexs.includes(context.dataIndex)
               ? true
-              : Math.round((context.raw - offset) * 100) / 100;
+              : context.raw - offset;
 
             if (value === true) {
               return "rgb(150, 150, 150)";
@@ -222,9 +224,9 @@ const ctx = document.getElementById("myChart").getContext("2d");
             label: function (context) {
               let value = nullIndexs.includes(context.dataIndex)
                 ? true
-                : Math.round((context.raw - offset) * 100);
+                : Math.round((context.raw - offset) * 10000)/100;
               return value !== true
-                ? " Winrate: " + Math.round(value) + "%"
+                ? " Winrate: " + value + "%"
                 : " No match played for this day.";
             },
           },
