@@ -1,6 +1,6 @@
 <?php
 
-include_once "chart.php";
+include_once "winrate_functions.php";
 
 function get_winrate_json()
 {

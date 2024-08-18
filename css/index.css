@@ -1,16 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap");
 
 body {
-    background-color: rgb(41, 44, 52);
-    margin: 0;
-    padding: 0;
-    font-family: "Moderustic", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
+  background-color: rgb(41, 44, 52);
+  margin: 0;
+  padding: 0;
+  font-family: "Moderustic", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
-h1
-{
-    color: rgb(255, 255, 255);
-    text-align: center;
+h1 {
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
+.chart-container {
+  width: 90%;
+  margin: 0 auto;
 }

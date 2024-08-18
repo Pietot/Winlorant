@@ -1,5 +1,5 @@
 <?php
-include_once "php/chart.php";
+include_once "php/winrate_functions.php";
 
 
 echo "<h1>" . get_number_game() . " parties ont été analysé. Ce nombre sera actualisé automatiquement tous les dimanches.</h1><br>";
