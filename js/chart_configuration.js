@@ -1,3 +1,20 @@
+async function getWinrateValues() {
+  let winrateData = await getWinrateData();
+  let winrateNullIndexs = verifyIndexNullValue(winrateData);
+
+  winrateNullIndexs.forEach((index) => {
+    winrateData[index] = 1;
+  });
+
+  if (verifyLowestWinrate(winrateData)) {
+    const offset = 0.1;
+    needPadding = true;
+    winrateData = addOffset(winrateData, offset);
+    return [winrateData, winrateNullIndexs, offset, needPadding];
+  }
+  return [winrateData, winrateNullIndexs, 0, false];
+}
+
 function verifyLowestWinrate(data) {
   for (let element of data) {
     if (element !== null && element < 0.1) {
@@ -7,7 +24,7 @@ function verifyLowestWinrate(data) {
   return false;
 }
 
-function addOffset(data) {
+function addOffset(data, offset = 0) {
   data.forEach((element, index) => {
     if (element !== null) {
       data[index] = element + offset;
@@ -29,7 +46,7 @@ function verifyIndexNullValue(data) {
   return nullIndexs == 0 ? false : nullIndexs;
 }
 
-async function getData() {
+async function getWinrateData() {
   try {
     const response = await fetch("php/get_winrate_json.php");
     if (!response.ok) {
@@ -97,24 +114,13 @@ const COLORS = [
   "rgb(0, 255, 255)",
 ];
 
-let offset = 0;
-let needPadding = false;
+const LABEL_COLORS = ["cyan", "red"];
+
 const ctx = document.getElementById("myChart").getContext("2d");
 
 (async function () {
-  let data = await getData();
-  let nullIndexs = verifyIndexNullValue(data);
-
-  nullIndexs.forEach((index) => {
-    data[index] = 1;
-  });
-
-  if (verifyLowestWinrate(data)) {
-    offset = 0.1;
-    needPadding = true;
-    data = addOffset(data);
-  }
-
+  let [winrateData, winrateNullIndexs, offset, needPadding] =
+    await getWinrateValues();
   new Chart(ctx, {
     type: "bar",
     data: {
@@ -130,9 +136,9 @@ const ctx = document.getElementById("myChart").getContext("2d");
       ],
       datasets: [
         {
-          data: data,
+          data: winrateData,
           backgroundColor: function (context) {
-            let value = nullIndexs.includes(context.dataIndex)
+            let value = winrateNullIndexs.includes(context.dataIndex)
               ? true
               : context.raw - offset;
             const alpha = 0.4;
@@ -144,7 +150,7 @@ const ctx = document.getElementById("myChart").getContext("2d");
             return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
           },
           borderColor: function (context) {
-            let value = nullIndexs.includes(context.dataIndex)
+            let value = winrateNullIndexs.includes(context.dataIndex)
               ? true
               : context.raw - offset;
 
@@ -156,21 +162,23 @@ const ctx = document.getElementById("myChart").getContext("2d");
           },
           borderWidth: 3,
           hoverBackgroundColor: function (context) {
-            if (nullIndexs.includes(context.dataIndex)) {
+            if (winrateNullIndexs.includes(context.dataIndex)) {
               return drawZebraStripes(context, "rgb(100, 100, 100)");
             }
             return context.dataset.borderColor(context);
           },
           hoverBorderColor: function (context) {
-            if (nullIndexs.includes(context.dataIndex)) {
+            if (winrateNullIndexs.includes(context.dataIndex)) {
               return "rgb(100, 100, 100)";
             }
             return context.dataset.borderColor(context);
           },
           hoverBorderWidth: function (context) {
-            return nullIndexs.includes(context.dataIndex) ? 3 : 0;
+            return winrateNullIndexs.includes(context.dataIndex) ? 3 : 0;
           },
+          label: "Winrate",
         },
+        {},
       ],
     },
     options: {
@@ -217,12 +225,37 @@ const ctx = document.getElementById("myChart").getContext("2d");
         },
       },
       plugins: {
+        legend: {
+          labels: {
+            generateLabels: function (chart) {
+              const labels = chart.data.datasets.map(function (dataset, i) {
+                return {
+                  text: dataset.label,
+                  fillStyle: LABEL_COLORS[i],
+                  strokeStyle: LABEL_COLORS[i],
+                  lineCap: dataset.borderCapStyle,
+                  lineDash: dataset.borderDash,
+                  lineDashOffset: dataset.borderDashOffset,
+                  lineJoin: dataset.borderJoinStyle,
+                  lineWidth: dataset.borderWidth,
+                  hidden: chart.getDatasetMeta(i).hidden,
+                  datasetIndex: i,
+                  fontColor: "rgb(255, 255, 255)",
+                };
+              });
+              return labels;
+            },
+            font: {
+              size: 20,
+            },
+          },
+        },
         tooltip: {
           callbacks: {
             label: function (context) {
-              let value = nullIndexs.includes(context.dataIndex)
+              let value = winrateNullIndexs.includes(context.dataIndex)
                 ? true
-                : Math.round((context.raw - offset) * 10000)/100;
+                : Math.round((context.raw - offset) * 10000) / 100;
               return value !== true
                 ? " Winrate: " + value + "%"
                 : " No match played for this day.";
