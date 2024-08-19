@@ -52,7 +52,7 @@ async function getData() {
       if (data[day] === "No games played") {
         winrates.push(null);
       } else {
-        winrates.push(parseFloat(data[day]) / 100);
+        winrates.push(data[day] / 100);
       }
     });
     return winrates;
@@ -174,6 +174,7 @@ const ctx = document.getElementById("myChart").getContext("2d");
       ],
     },
     options: {
+      responsive: true,
       scales: {
         x: {
           grid: {
@@ -216,9 +217,6 @@ const ctx = document.getElementById("myChart").getContext("2d");
         },
       },
       plugins: {
-        legend: {
-          display: false,
-        },
         tooltip: {
           callbacks: {
             label: function (context) {
