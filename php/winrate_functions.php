@@ -66,7 +66,7 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
             $win_per_day[$day] = "No games played";
         } else {
             $winrate = ($value[0] / $value[1] * 100);
-            $win_per_day[$day] = $winrate . "%";
+            $win_per_day[$day] = $winrate;
 
             $totalWins += $value[0];
             $totalGames += $value[1];
@@ -74,7 +74,7 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
     }
 
     if ($totalGames > 0) {
-        $averageWinrate = ($totalWins / $totalGames * 100) . "%";
+        $averageWinrate = ($totalWins / $totalGames * 100);
     } else {
         $averageWinrate = "No games played";
     }
