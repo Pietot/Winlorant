@@ -2,17 +2,32 @@ async function getWinrateValues() {
   let winrateData = await getWinrateData();
   let winrateNullIndexs = verifyIndexNullValue(winrateData);
 
-  winrateNullIndexs.forEach((index) => {
-    winrateData[index] = 1;
-  });
+  if (winrateNullIndexs.length > 0) {
+    winrateNullIndexs.forEach((index) => {
+      winrateData[index] = 1;
+    });
+  }
 
   if (verifyLowestWinrate(winrateData)) {
-    const offset = 0.1;
-    needPadding = true;
-    winrateData = addOffset(winrateData, offset);
-    return [winrateData, winrateNullIndexs, offset, needPadding];
+    return [winrateData, winrateNullIndexs, true];
   }
-  return [winrateData, winrateNullIndexs, 0, false];
+  return [winrateData, winrateNullIndexs, false];
+}
+
+async function getHeadshotValues() {
+  let headshotData = await getHeadshotData();
+  let headshotNullIndexs = verifyIndexNullValue(headshotData);
+
+  if (headshotNullIndexs.length > 0) {
+    headshotNullIndexs.forEach((index) => {
+      headshotData[index] = 1;
+    });
+  }
+
+  if (verifyLowestWinrate(headshotData)) {
+    return [headshotData, headshotNullIndexs, true];
+  }
+  return [headshotData, headshotNullIndexs, false];
 }
 
 function verifyLowestWinrate(data) {
@@ -24,7 +39,7 @@ function verifyLowestWinrate(data) {
   return false;
 }
 
-function addOffset(data, offset = 0) {
+function addOffset(data, offset = 0.1) {
   data.forEach((element, index) => {
     if (element !== null) {
       data[index] = element + offset;
@@ -43,7 +58,7 @@ function verifyIndexNullValue(data) {
       nullIndexs.push(index);
     }
   }
-  return nullIndexs == 0 ? false : nullIndexs;
+  return nullIndexs == 0 ? [] : nullIndexs;
 }
 
 async function getWinrateData() {
@@ -73,6 +88,38 @@ async function getWinrateData() {
       }
     });
     return winrates;
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+async function getHeadshotData() {
+  try {
+    const response = await fetch("php/get_headshot_json.php");
+    if (!response.ok) {
+      throw new Error("Network response was not ok " + response.statusText);
+    }
+    const data = await response.json();
+    let headshots = [];
+    let days = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday",
+      "Global",
+    ];
+
+    days.forEach((day) => {
+      if (data[day] === "No games played") {
+        headshots.push(null);
+      } else {
+        headshots.push(data[day] / 100);
+      }
+    });
+    return headshots;
   } catch (error) {
     console.error("There was a problem with the fetch operation:", error);
   }
@@ -119,8 +166,19 @@ const LABEL_COLORS = ["cyan", "red"];
 const ctx = document.getElementById("myChart").getContext("2d");
 
 (async function () {
-  let [winrateData, winrateNullIndexs, offset, needPadding] =
+  let offset = 0;
+  let needPadding = false;
+  let [winrateData, winrateNullIndexs, winrateNeedPadding] =
     await getWinrateValues();
+  let [headshotData, headshotNullIndexs, headshotNeedPadding] =
+    await getHeadshotValues();
+  if (winrateNeedPadding || headshotNeedPadding) {
+    winrateData = addOffset(winrateData);
+    headshotData = addOffset(headshotData);
+    offset = 0.1;
+    needPadding = true;
+  }
+  console.log(headshotData);
   new Chart(ctx, {
     type: "bar",
     data: {
@@ -136,6 +194,7 @@ const ctx = document.getElementById("myChart").getContext("2d");
       ],
       datasets: [
         {
+          label: "Winrate",
           data: winrateData,
           backgroundColor: function (context) {
             let value = winrateNullIndexs.includes(context.dataIndex)
@@ -176,9 +235,50 @@ const ctx = document.getElementById("myChart").getContext("2d");
           hoverBorderWidth: function (context) {
             return winrateNullIndexs.includes(context.dataIndex) ? 3 : 0;
           },
-          label: "Winrate",
         },
-        {},
+        {
+          label: "Headshots",
+          data: headshotData,
+          backgroundColor: function (context) {
+            let value = headshotNullIndexs.includes(context.dataIndex)
+              ? true
+              : context.raw - offset;
+            const alpha = 0.4;
+            if (value === true) {
+              return drawZebraStripes(context, "rgb(150, 150, 150)");
+            }
+            let index = Math.floor(value * 10);
+            let rgb = COLORS[index].match(/\d+/g);
+            return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
+          },
+          borderColor: function (context) {
+            let value = headshotNullIndexs.includes(context.dataIndex)
+              ? true
+              : context.raw - offset;
+
+            if (value === true) {
+              return "rgb(150, 150, 150)";
+            }
+            let index = Math.floor(value * 10);
+            return COLORS[index];
+          },
+          borderWidth: 3,
+          hoverBackgroundColor: function (context) {
+            if (headshotNullIndexs.includes(context.dataIndex)) {
+              return drawZebraStripes(context, "rgb(100, 100, 100)");
+            }
+            return context.dataset.borderColor(context);
+          },
+          hoverBorderColor: function (context) {
+            if (headshotNullIndexs.includes(context.dataIndex)) {
+              return "rgb(100, 100, 100)";
+            }
+            return context.dataset.borderColor(context);
+          },
+          hoverBorderWidth: function (context) {
+            return headshotNullIndexs.includes(context.dataIndex) ? 3 : 0;
+          },
+        },
       ],
     },
     options: {
@@ -241,6 +341,9 @@ const ctx = document.getElementById("myChart").getContext("2d");
                   hidden: chart.getDatasetMeta(i).hidden,
                   datasetIndex: i,
                   fontColor: "rgb(255, 255, 255)",
+                  textDecoration: chart.getDatasetMeta(i).hidden
+                    ? "line-through"
+                    : "none",
                 };
               });
               return labels;
@@ -256,8 +359,12 @@ const ctx = document.getElementById("myChart").getContext("2d");
               let value = winrateNullIndexs.includes(context.dataIndex)
                 ? true
                 : Math.round((context.raw - offset) * 10000) / 100;
+              label =
+                context.dataset.label === "Winrate"
+                  ? " Winrate: "
+                  : " Headshots: ";
               return value !== true
-                ? " Winrate: " + value + "%"
+                ? label + value + "%"
                 : " No match played for this day.";
             },
           },
