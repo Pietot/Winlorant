@@ -2,7 +2,6 @@
 include_once "php/winrate_functions.php";
 include_once "php/headshot_functions.php";
 
-
 echo "<h1>" . get_number_game() . " parties ont été analysé. Ce nombre sera actualisé automatiquement tous les dimanches.</h1><br>";
 ?>
 
@@ -12,7 +11,7 @@ echo "<h1>" . get_number_game() . " parties ont été analysé. Ce nombre sera a
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Graphique en courbe</title>
+    <title>Graphique</title>
     <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
 
