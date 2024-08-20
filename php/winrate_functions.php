@@ -3,11 +3,6 @@
 include_once "get_data_json.php";
 include_once "data_functions.php";
 
-$name = "Plouf VoltaniX";
-$tag = "0000";
-
-define("GAME_JSON", get_data_json($name, $tag));
-
 function get_number_game()
 {
     $nb_game = 0;
