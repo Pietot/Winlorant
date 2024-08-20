@@ -39,6 +39,7 @@ function get_map_winrate(?int $oldest = null, ?int $newest = null): array
         $totalGames += $value[1];
     }
 
+    arsort($win_per_map);
     $average_winrate = $totalWins / $totalGames * 100;
     $win_per_map["Global"] = $average_winrate;
 
