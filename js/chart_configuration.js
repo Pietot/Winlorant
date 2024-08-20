@@ -39,7 +39,7 @@ function verifyLowestWinrate(data) {
   return false;
 }
 
-function addOffset(data, offset = 0.1) {
+function addOffset(data, offset = 0.05) {
   data.forEach((element, index) => {
     if (element !== null) {
       data[index] = element + offset;
@@ -175,10 +175,9 @@ const ctx = document.getElementById("myChart").getContext("2d");
   if (winrateNeedPadding || headshotNeedPadding) {
     winrateData = addOffset(winrateData);
     headshotData = addOffset(headshotData);
-    offset = 0.1;
+    offset = 0.05;
     needPadding = true;
   }
-  console.log(headshotData);
   new Chart(ctx, {
     type: "bar",
     data: {
@@ -307,20 +306,32 @@ const ctx = document.getElementById("myChart").getContext("2d");
           },
           min: 0,
           ticks: {
-            callback: function (value) {
-              if (value === 0 && needPadding) {
+            callback: function (value, index) {
+              if (
+                (value === 0 && needPadding) ||
+                (index % 2 === 0 && needPadding) ||
+                (index % 2 === 1 && !needPadding)
+              ) {
                 return "";
               }
               return Math.round((value - offset) * 100) + "%";
             },
-            stepSize: 0.1,
+            stepSize: 0.05,
             color: "rgba(255, 255, 255, 0.7)",
             font: {
               size: 20,
             },
           },
           grid: {
-            color: "rgba(255, 255, 255, 0.5)",
+            color: function (context) {
+              if (
+                (context.index % 2 === 0 && needPadding) ||
+                (context.index % 2 === 1 && !needPadding)
+              ) {
+                return "rgba(255, 255, 255, 0.0)";
+              }
+              return "rgba(255, 255, 255, 0.5)";
+            },
           },
         },
       },
