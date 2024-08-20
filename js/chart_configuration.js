@@ -444,7 +444,7 @@ const ctxMap = document.getElementById("mapChart").getContext("2d");
           hoverBorderColor: function (context) {
             return context.dataset.borderColor(context);
           },
-          hoverBorderWidth: 3,
+          hoverBorderWidth: 0,
         },
       ],
     },
