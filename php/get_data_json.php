@@ -16,7 +16,6 @@ function get_data_json(string $name, string $tag): ?array
     curl_setopt($curl_handle, CURLOPT_TIMEOUT, 30);
     curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array(
         'Content-Type: application/json'
-
     ));
 
     $response = curl_exec($curl_handle);
@@ -29,3 +28,5 @@ function get_data_json(string $name, string $tag): ?array
     $data = json_decode($response, true);
     return $data;
 }
+
+define("GAME_JSON", get_data_json("Plouf Cansu", "0000"));
