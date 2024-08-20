@@ -8,9 +8,6 @@ function get_map_winrate(?int $oldest = null, ?int $newest = null): array
 {
     $win_per_map = array();
 
-    $totalWins = 0;
-    $totalGames = 0;
-
     foreach (GAME_JSON["data"] as $key) {
         if (!is_competitive($key) && !is_unrated($key)) {
             continue;
@@ -33,15 +30,11 @@ function get_map_winrate(?int $oldest = null, ?int $newest = null): array
     }
 
     foreach ($win_per_map as $map => $value) {
-        $winrate = $value[0] / $value[1] * 100;
+        $winrate = $value[0] / $value[1];
         $win_per_map[$map] = $winrate;
-        $totalWins += $value[0];
-        $totalGames += $value[1];
     }
 
     arsort($win_per_map);
-    $average_winrate = $totalWins / $totalGames * 100;
-    $win_per_map["Global"] = $average_winrate;
 
     return $win_per_map;
 }

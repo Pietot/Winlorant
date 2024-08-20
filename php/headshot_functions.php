@@ -48,7 +48,7 @@ function get_headshot_per_day(?int $oldest = null, ?int $newest = null): array
         if ($value[1] === 0) {
             $headshot_per_day[$key] = "No games played";
         } else {
-            $headshot_rate = $value[0] / $value[1] * 100;
+            $headshot_rate = $value[0] / $value[1];
             $headshot_per_day[$key] = $headshot_rate;
             $total_headshot += $value[0];
             $total_hits += $value[1];
@@ -56,7 +56,7 @@ function get_headshot_per_day(?int $oldest = null, ?int $newest = null): array
     }
 
     if ($total_hits !== 0) {
-        $average_headshot_rate = $total_headshot / $total_hits * 100;
+        $average_headshot_rate = $total_headshot / $total_hits;
     } else {
         $average_headshot_rate = "No games played";
     }

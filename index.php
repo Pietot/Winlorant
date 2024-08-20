@@ -17,8 +17,19 @@ echo "<h1>" . get_number_game() . " parties ont été analysé. Ce nombre sera a
 
 <body>
     <div class="chart-container">
-        <canvas id="myChart"></canvas>
+        <canvas id="dailyChart"></canvas>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="chart-container">
+        <canvas id="mapChart"></canvas>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
     <script src="js/chart.min.js"></script>
     <script src="js/chart_configuration.js"></script>
 </body>
