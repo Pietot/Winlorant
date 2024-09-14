@@ -1,10 +1,24 @@
 <?php
-include_once "php/winrate_functions.php";
-include_once "php/headshot_functions.php";
+include_once 'php/is_registered.php';
+$database_config = include_once '../src/config/database.php';
+
+$host = $database_config['host'];
+$dbname = $database_config['dbname'];
+$user = $database_config['user'];
+$password = $database_config['password'];
+
+$db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
+$userdata = is_registered($db);
+
+if ($userdata) {
+    $_SESSION['username'] = $userdata[0];
+    $_SESSION['tag'] = $userdata[1];
+    $_SESSION['region'] = $userdata[2];
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
@@ -24,26 +38,47 @@ include_once "php/headshot_functions.php";
         <div class="header-links">
             <a class="contact" href="contact.html">Contact</a>
         </div>
-        <div class="header-links">
-            <a class="register" href="php/signup.php">Register</a>
-        </div>
+            <?php
+            if ($userdata) {
+                echo '<div class="header-links">' . "\n";
+                echo '<p class="user" href="#">' . $_SESSION["username"] . '#' . $_SESSION["tag"] . "</p>\n";
+                echo '</div>' . "\n";
+                echo '<div class="header-links">' . "\n";
+                echo '<a class="signout" href="php/signout.php">Sign out</a>';
+                echo '</div>' . "\n";
+            } else {
+                echo '<div class="header-links">' . "\n";
+                echo '<a class="register" href="php/register.php">Register</a>';
+                echo '</div>' . "\n";
+            }
+            ?>
     </header>
-    <div class="chart-container">
-        <canvas id="dailyChart"></canvas>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="chart-container">
-        <canvas id="mapChart"></canvas>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <script src="js/chart.min.js"></script>
-    <script src="js/chart_configuration.js"></script>
+    <?php
+    if ($userdata) {
+        echo '<div class="chart-container">' . "\n";
+        echo '<canvas id="dailyChart"></canvas>' . "\n";
+        echo '</div>' . "\n";
+        echo '<br>' . "\n";
+        echo '<br>' . "\n";
+        echo '<br>' . "\n";
+        echo '<br>' . "\n";
+        echo '<div class="chart-container">' . "\n";
+        echo '<canvas id="mapChart"></canvas>' . "\n";
+        echo '</div>' . "\n";
+        echo '<br>' . "\n";
+        echo '<br>' . "\n";
+        echo '<br>' . "\n";
+        echo '<br>' . "\n";
+        echo '<script src="js/chart.min.js"></script>' . "\n";
+        echo '<script src="js/chart_configuration.js"></script>' . "\n";
+    } else {
+        echo '<div class="welcome-container">' . "\n";
+        echo '<h1>Welcome to Winlorant Tracker</h1>' . "\n";
+        echo '<p>Winlorant Tracker is a tool that allows you to track your daily progress in Valorant.</p>' . "\n";
+        echo '<p>Register to start tracking your daily progress.</p>' . "\n";
+        echo '</div>' . "\n";
+    }
+    ?>
 </body>
 
 </html>
