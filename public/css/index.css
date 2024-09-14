@@ -30,6 +30,8 @@ h1 {
 
 .home,
 .register,
+.user,
+.signout,
 .about,
 .contact {
   position: relative;
@@ -41,6 +43,8 @@ h1 {
 
 .home::after,
 .register::after,
+.user::after,
+.signout::after,
 .about::after,
 .contact::after {
   content: "";
@@ -55,7 +59,13 @@ h1 {
 
 .home:hover::after,
 .register:hover::after,
+.user:hover::after,
+.signout:hover::after,
 .about:hover::after,
 .contact:hover::after {
   width: 100%;
+}
+
+.user{
+  cursor: default;
 }
