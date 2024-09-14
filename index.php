@@ -25,7 +25,7 @@ include_once "php/headshot_functions.php";
             <a class="contact" href="contact.html">Contact</a>
         </div>
         <div class="header-links">
-            <a class="signin" href="signin.php">Sign in</a>
+            <a class="register" href="php/signup.php">Register</a>
         </div>
     </header>
     <div class="chart-container">
