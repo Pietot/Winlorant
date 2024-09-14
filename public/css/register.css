@@ -87,3 +87,12 @@ input[type="password"]:focus {
 .tag {
   flex: 1;
 }
+
+.error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: red;
+  font-size: 20px;
+  margin-top: 40px;
+}
