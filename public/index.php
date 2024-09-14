@@ -44,11 +44,11 @@ if ($userdata) {
             echo '<p class="user" href="#">' . $_SESSION["username"] . '#' . $_SESSION["tag"] . "</p>\n";
             echo '</div>' . "\n";
             echo '<div class="header-links">' . "\n";
-            echo '<a class="signout" href="php/signout.php">Sign out</a>';
+            echo '<a class="signout" href="../src/php/signout.php">Sign out</a>';
             echo '</div>' . "\n";
         } else {
             echo '<div class="header-links">' . "\n";
-            echo '<a class="register" href="php/register.php">Register</a>';
+            echo '<a class="register" href="register.php">Register</a>';
             echo '</div>' . "\n";
         }
         ?>
