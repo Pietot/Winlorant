@@ -1,11 +1,11 @@
 <?php
 
 define("API_KEY", "HDEV-284f2d01-91dd-40a7-b52b-5ae7dbbe1309");
-define("API_URL", "https://api.henrikdev.xyz/valorant/v1/stored-matches/eu/");
+define("API_URL", "https://api.henrikdev.xyz/valorant/v1/stored-matches/");
 
-function get_data_json(string $name, string $tag): ?array
+function get_data_json(string $name, string $tag, string $region): ?array
 {
-    $url_with_key = API_URL . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . API_KEY;
+    $url_with_key = API_URL . $region . "/" . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . API_KEY;
     $curl_handle = curl_init();
 
     // Options cURL
@@ -28,5 +28,3 @@ function get_data_json(string $name, string $tag): ?array
     $data = json_decode($response, true);
     return $data;
 }
-
-define("GAME_JSON", get_data_json("Plouf Cansu", "0000"));
