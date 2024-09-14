@@ -21,16 +21,44 @@ h1 {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
   margin-bottom: 20px;
   background-color: rgb(41, 44, 52);
-  height: 100px;
+  height: 150px;
 }
 
-.h1 {
-  width: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.home,
+.signin,
+.signout,
+.about,
+.contact {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  padding-bottom: 5px;
+  font-size: 40px;
+}
+
+.home::after,
+.signin::after,
+.signout::after,
+.about::after,
+.contact::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: white;
+  transition: width 0.5s ease;
+}
+
+.home:hover::after,
+.signin:hover::after,
+.signout:hover::after,
+.about:hover::after,
+.contact:hover::after {
+  width: 100%;
 }

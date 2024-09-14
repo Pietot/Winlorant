@@ -15,11 +15,17 @@ include_once "php/headshot_functions.php";
 
 <body>
     <header class="header">
-        <div class="h1">
-            <h1>Winlorant Tracker</h1>
+        <div class="header-links">
+            <a class="home" href="index.php">Winlorant Tracker</a>
         </div>
         <div class="header-links">
-
+            <a class="about" href="about.html">About</a>
+        </div>
+        <div class="header-links">
+            <a class="contact" href="contact.html">Contact</a>
+        </div>
+        <div class="header-links">
+            <a class="signin" href="signin.php">Sign in</a>
         </div>
     </header>
     <div class="chart-container">
