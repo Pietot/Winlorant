@@ -1,5 +1,5 @@
 <?php
-include_once 'php/is_registered.php';
+include_once '../src/php/is_registered.php';
 $database_config = include_once '../src/config/database.php';
 
 $host = $database_config['host'];

@@ -1,7 +1,7 @@
 <?php
 
 include_once 'is_registered.php';
-$database_config = include_once '../../src/config/database.php';
+$database_config = include_once '../src/config/database.php';
 
 $host = $database_config['host'];
 $dbname = $database_config['dbname'];

@@ -24,7 +24,7 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST['username']) && isset($_POST['tag'])) {
                     include_once 'get_user_region.php';
-                    $database_config = include_once '../../src/config/database.php';
+                    $database_config = include_once '../config/database.php';
 
                     $host = $database_config['host'];
                     $dbname = $database_config['dbname'];
