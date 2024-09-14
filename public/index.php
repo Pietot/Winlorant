@@ -75,7 +75,7 @@ if ($userdata) {
         echo '<div class="welcome-container">' . "\n";
         echo '<h1>Welcome to Winlorant Tracker</h1>' . "\n";
         echo '<p>Winlorant Tracker is a simple tool that allows you to track lifetime stats like your winrate or headshots per day and your winrate per map.</p>' . "\n";
-        echo '<p>Start by register / login to start tracking your daily progress.</p>' . "\n";
+        echo '<p>Start by register / login to start tracking your ranked stats.</p>' . "\n";
         echo "<p>Once you've logged (for 1 month, after you'll need to log in again), if it's the first time, we will scrap your 7 past days games'</p>" . "\n";
         echo "<p>Then we will update your data each day automatically.</p>" . "\n";
         echo "<p>Hope you will enjoy this small project  ^^</p>" . "\n";
