@@ -2,39 +2,46 @@
 
 function compress(int $id): void
 {
-    $json = file_get_contents("../json/$id.json");
+    $gzFile = gzopen(__DIR__ . "/../json/$id.json.gz", 'r');
+    $json = '';
+    if ($gzFile) {
+        while (!gzeof($gzFile)) {
+            $json .= gzread($gzFile, 4096);
+        }
+        gzclose($gzFile);
+    }
     $data = json_decode($json, true);
     $simplified_data = [];
 
     foreach ($data['data'] as $item) {
         $simplified_data[] = [
-            'meta' => [
-                'map' => $item['meta']['map']['name'],
-                'started_at' => $item['meta']['started_at'],
-                'season' => $item['meta']['season']['short']
+            'mt' => [
+                'mp' => $item['meta']['map']['name'],
+                'st' => $item['meta']['started_at'],
+                's' => $item['meta']['season']['short']
             ],
-            'stats' => [
-                'team' => $item['stats']['team'],
-                'kills' => $item['stats']['kills'],
-                'deaths' => $item['stats']['deaths'],
-                'assists' => $item['stats']['assists'],
-                'shots' => [
-                    'head' => $item['stats']['shots']['head'],
-                    'body' => $item['stats']['shots']['body'],
-                    'leg' => $item['stats']['shots']['leg']
+            'sts' => [
+                't' => $item['stats']['team'],
+                'k' => $item['stats']['kills'],
+                'd' => $item['stats']['deaths'],
+                'a' => $item['stats']['assists'],
+                's' => [
+                    'h' => $item['stats']['shots']['head'],
+                    'b' => $item['stats']['shots']['body'],
+                    'l' => $item['stats']['shots']['leg']
                 ],
-                'damage' => [
-                    'made' => $item['stats']['damage']['made'],
-                    'received' => $item['stats']['damage']['received']
+                'd' => [
+                    'm' => $item['stats']['damage']['made'],
+                    'r' => $item['stats']['damage']['received']
                 ]
             ],
-            'teams' => [
-                'red' => $item['teams']['red'],
-                'blue' => $item['teams']['blue']
+            'ts' => [
+                'r' => $item['teams']['red'],
+                'b' => $item['teams']['blue']
             ]
         ];
     }
 
     $simplifiedJson = json_encode(['data' => $simplified_data], 0);
-    file_put_contents("../json/$id.json", $simplifiedJson);
+    file_put_contents(__DIR__ . "/../json/$id.json.gz", $simplifiedJson);
 }
