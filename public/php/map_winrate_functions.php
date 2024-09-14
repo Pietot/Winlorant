@@ -9,10 +9,6 @@ function get_map_winrate(?int $oldest = null, ?int $newest = null): array
     $win_per_map = array();
 
     foreach (GAME_JSON["data"] as $key) {
-        if (!is_competitive($key) && !is_unrated($key)) {
-            continue;
-        }
-
         $date = $key["meta"]["started_at"];
         $date = strtotime($date);
 

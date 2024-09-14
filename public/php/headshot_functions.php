@@ -24,10 +24,6 @@ function get_headshot_per_day(?int $oldest = null, ?int $newest = null): array
     );
 
     foreach (GAME_JSON["data"] as $key) {
-        if (!is_competitive($key) && !is_unrated($key)) {
-            continue;
-        }
-
         $date = $key["meta"]["started_at"];
         $date = strtotime($date);
 
