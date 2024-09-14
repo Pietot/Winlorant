@@ -55,6 +55,17 @@
                         $stmt->bindValue(':tag', $tag, PDO::PARAM_STR);
                         $stmt->bindValue(':region', $region, PDO::PARAM_STR);
                         $stmt->execute();
+                        include_once 'compress_json.php';
+                        include_once 'get_data_json.php';
+                        $json = get_data_json($username, $tag, $region);
+                        $query = "SELECT id FROM users WHERE username = :username AND tag = :tag";
+                        $stmt = $db->prepare($query);
+                        $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+                        $stmt->bindValue(':tag', $tag, PDO::PARAM_STR);
+                        $stmt->execute();
+                        $id = $stmt->fetch()['id'];
+                        file_put_contents("../json/$id.json", json_encode($json, 0));
+                        compress($id);
                     }
 
                     setcookie('username', $username, [
