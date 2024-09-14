@@ -18,3 +18,19 @@ h1 {
   width: 90%;
   margin: 0 auto;
 }
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: rgb(41, 44, 52);
+  height: 100px;
+}
+
+.h1 {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
