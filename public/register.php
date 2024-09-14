@@ -64,7 +64,8 @@
                         $stmt->bindValue(':tag', $tag, PDO::PARAM_STR);
                         $stmt->execute();
                         $id = $stmt->fetch()['id'];
-                        file_put_contents("../json/$id.json", json_encode($json, 0));
+                        $json = json_encode($json, 0);
+                        file_put_contents(__DIR__ . "/../src/json/$id.json.gz", gzencode($json));
                         compress($id);
                     }
 
