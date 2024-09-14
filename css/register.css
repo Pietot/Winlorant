@@ -1,35 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
+  background-color: #292c34; /* Couleur de fond */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  color: white;
 }
+
+/* Conteneur du formulaire */
 .form-container {
-    text-align: center;
-    border: 1px solid #ccc;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: #f9f9f9;
-    width: 300px; /* Fixe une largeur pour le conteneur */
+  background-color: #333740;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
 }
-.form-container input {
-    margin-bottom: 10px;
-    padding: 10px;
-    box-sizing: border-box;
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffffff;
 }
-.username-tag-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+
+/* Style des champs du formulaire */
+.form-group {
+  margin-bottom: 20px;
 }
-.username-tag-container input {
-    width: 48%;
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #b5b5b5;
+  font-size: 14px;
 }
-.form-container button {
-    padding: 10px 20px;
-    cursor: pointer;
-    width: 100%;
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #404451;
+  color: white;
+  font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  outline: 2px solid #61dafb;
+  outline-offset: 0;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #61dafb;
+  border: none;
+  border-radius: 5px;
+  color: #292c34;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #4fb3e0;
+}
+
+.tag-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.username {
+  flex: 2;
+}
+
+.tag {
+  flex: 1;
 }
