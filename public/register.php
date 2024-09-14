@@ -87,7 +87,7 @@
                         'httponly' => true,
                     ]);
 
-                    header('Location: ../index.php');
+                    header('Location: index.php');
                 }
             }
             ?>
