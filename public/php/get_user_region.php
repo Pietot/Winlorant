@@ -2,7 +2,7 @@
 define("API_KEY", "HDEV-284f2d01-91dd-40a7-b52b-5ae7dbbe1309");
 define("API_URL", "https://api.henrikdev.xyz/valorant/v1/account/");
 
-function get_user_region(string $name, string $tag): ?array
+function get_user_region(string $name, string $tag): ?string
 {
     $url_with_key = API_URL . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . API_KEY;
     $curl_handle = curl_init();
@@ -25,8 +25,8 @@ function get_user_region(string $name, string $tag): ?array
 
     curl_close($curl_handle);
     $data = json_decode($response, true);
-    if (isset($data['region'])) {
-        return $data['region'];
+    if (isset($data["data"]['region'])) {
+        return $data["data"]['region'];
     }
     return null;
 }
