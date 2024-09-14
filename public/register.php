@@ -23,8 +23,8 @@
             <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST['username']) && isset($_POST['tag'])) {
-                    include_once 'get_user_region.php';
-                    $database_config = include_once '../config/database.php';
+                    include_once '../src/php/get_user_region.php';
+                    $database_config = include_once '../src/config/database.php';
 
                     $host = $database_config['host'];
                     $dbname = $database_config['dbname'];
@@ -55,8 +55,8 @@
                         $stmt->bindValue(':tag', $tag, PDO::PARAM_STR);
                         $stmt->bindValue(':region', $region, PDO::PARAM_STR);
                         $stmt->execute();
-                        include_once 'compress_json.php';
-                        include_once 'get_data_json.php';
+                        include_once '../src/php/compress_json.php';
+                        include_once '../src/php/get_data_json.php';
                         $json = get_data_json($username, $tag, $region);
                         $query = "SELECT id FROM users WHERE username = :username AND tag = :tag";
                         $stmt = $db->prepare($query);
