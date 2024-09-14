@@ -1,10 +1,10 @@
 <?php
-define("API_KEY", "HDEV-284f2d01-91dd-40a7-b52b-5ae7dbbe1309");
-define("API_URL", "https://api.henrikdev.xyz/valorant/v1/account/");
+define("_API_KEY", "HDEV-284f2d01-91dd-40a7-b52b-5ae7dbbe1309");
+define("_API_URL", "https://api.henrikdev.xyz/valorant/v1/account/");
 
 function get_user_region(string $name, string $tag): ?string
 {
-    $url_with_key = API_URL . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . API_KEY;
+    $url_with_key = _API_URL . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . _API_KEY;
     $curl_handle = curl_init();
 
     // Options cURL
