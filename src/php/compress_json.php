@@ -2,14 +2,8 @@
 
 function compress(int $id): void
 {
-    $gzFile = gzopen(__DIR__ . "/../json/$id.json.gz", 'r');
-    $json = '';
-    if ($gzFile) {
-        while (!gzeof($gzFile)) {
-            $json .= gzread($gzFile, 4096);
-        }
-        gzclose($gzFile);
-    }
+    $gz_file = file_get_contents(__DIR__ . "/../json/$id.json.gz");
+    $json = gzdecode($gz_file);
     $data = json_decode($json, true);
     $simplified_data = [];
 
@@ -42,6 +36,7 @@ function compress(int $id): void
         ];
     }
 
-    $simplifiedJson = json_encode(['data' => $simplified_data], 0);
-    file_put_contents(__DIR__ . "/../json/$id.json.gz", $simplifiedJson);
+    $simplified_json = json_encode(['d' => $simplified_data], 0);
+    $simplified_gz = gzencode($simplified_json);
+    file_put_contents(__DIR__ . "/../json/$id.json.gz", $simplified_gz);
 }
