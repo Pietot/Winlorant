@@ -1,13 +1,8 @@
 <?php
+session_start();
 include_once '../src/php/is_registered.php';
-$database_config = include_once '../src/config/database.php';
+include '../src/php/db.php';
 
-$host = $database_config['host'];
-$dbname = $database_config['dbname'];
-$user = $database_config['user'];
-$password = $database_config['password'];
-
-$db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
 $userdata = is_registered($db);
 
 if ($userdata) {
