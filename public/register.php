@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
+    include_once __DIR__ . '/../src/php/is_registered.php';
+    include '../src/php/db.php';
+    if (is_registered($db)) {
+        header('Location: index.php');
+    }
+} else
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
