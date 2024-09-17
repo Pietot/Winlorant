@@ -71,7 +71,7 @@ function verifyIndexNullValue(data) {
 
 async function getWinrateData() {
   try {
-    const response = await fetch("php/get_winrate_json.php");
+    const response = await fetch("../src/php/get_winrate_json.php");
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);
     }
@@ -103,7 +103,7 @@ async function getWinrateData() {
 
 async function getHeadshotData() {
   try {
-    const response = await fetch("php/get_headshot_json.php");
+    const response = await fetch("../src/php/get_headshot_json.php");
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);
     }
@@ -135,7 +135,7 @@ async function getHeadshotData() {
 
 async function getMapWinrateData() {
   try {
-    const response = await fetch("php/get_map_winrate_json.php");
+    const response = await fetch("../src/php/get_map_winrate_json.php");
     if (!response.ok) {
       throw new Error("Network response was not ok " + response.statusText);
     }
@@ -304,6 +304,7 @@ const ctxMap = document.getElementById("mapChart").getContext("2d");
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           grid: {
@@ -450,6 +451,7 @@ const ctxMap = document.getElementById("mapChart").getContext("2d");
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       scales: {
         x: {
           grid: {
