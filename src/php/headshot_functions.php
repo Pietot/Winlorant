@@ -2,12 +2,13 @@
 
 include_once "get_data_json.php";
 include_once "data_functions.php";
+include_once "winrate_functions.php";
 
 function get_hits(array $data): array
 {
-    $headshot = $data["stats"]["shots"]["head"];
-    $other = (intval($data["stats"]["shots"]["body"])
-        + intval($data["stats"]["shots"]["leg"]));
+    $headshot = $data["sts"]["s"]["h"];
+    $other = (intval($data["sts"]["s"]["b"])
+        + intval($data["sts"]["s"]["l"]));
     return [$headshot, $headshot + $other];
 }
 
@@ -23,8 +24,10 @@ function get_headshot_per_day(?int $oldest = null, ?int $newest = null): array
         "Sunday" => [0, 0]
     );
 
-    foreach (GAME_JSON["data"] as $key) {
-        $date = $key["meta"]["started_at"];
+    $game_json = get_json();
+
+    foreach ($game_json["d"] as $key) {
+        $date = $key["mt"]["st"];
         $date = strtotime($date);
 
         if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest)) {
