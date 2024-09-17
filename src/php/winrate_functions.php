@@ -2,22 +2,42 @@
 
 include_once "get_data_json.php";
 include_once "data_functions.php";
+include "db.php";
+
+function get_id(): int
+{
+    global $db;
+    $query = "SELECT id FROM users WHERE username = :username AND tag = :tag";
+    $stmt = $db->prepare($query);
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+    $stmt->bindValue(':username', $_SESSION['username'], PDO::PARAM_STR);
+    $stmt->bindValue(':tag', $_SESSION['tag'], PDO::PARAM_STR);
+    $stmt->execute();
+    $id = $stmt->fetch()['id'];
+    return $id;
+}
+
+function get_json(): array
+{
+    $id = get_id();
+    $json = file_get_contents(__DIR__ . "/../json/$id.json.gz");
+    $json = gzdecode($json);
+    $json = json_decode($json, true);
+    return $json;
+}
 
 function get_number_game()
 {
-    $nb_game = 0;
-    foreach (GAME_JSON["data"] as $key) {
-        if (is_competitive($key) || is_unrated($key)) {
-            $nb_game += 1;
-        }
-    }
-    return $nb_game;
+    $game_json = get_json();
+    return count($game_json['d']);
 }
 
 function has_win(array $data): bool
 {
-    $team = $data["stats"]["team"];
-    $winning_team = ($data['teams']['blue'] > $data['teams']['red']) ? "Blue" : "Red";
+    $team = $data["sts"]["t"];
+    $winning_team = ($data['ts']['b'] > $data['ts']['r']) ? "Blue" : "Red";
     if ($team === $winning_team) {
         return true;
     }
@@ -38,9 +58,10 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
 
     $totalWins = 0;
     $totalGames = 0;
+    $game_json = get_json();
 
-    foreach (GAME_JSON["data"] as $key) {
-        $date = $key["meta"]["started_at"];
+    foreach ($game_json["d"] as $key) {
+        $date = $key["mt"]["st"];
         $date = strtotime($date);
 
         if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest)) {
