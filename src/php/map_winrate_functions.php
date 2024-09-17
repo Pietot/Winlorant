@@ -7,16 +7,17 @@ include_once "winrate_functions.php";
 function get_map_winrate(?int $oldest = null, ?int $newest = null): array
 {
     $win_per_map = array();
+    $game_json = get_json();
 
-    foreach (GAME_JSON["data"] as $key) {
-        $date = $key["meta"]["started_at"];
+    foreach ($game_json["d"] as $key) {
+        $date = $key["mt"]["st"];
         $date = strtotime($date);
 
         if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest)) {
             continue;
         }
 
-        $map = $key["meta"]["map"]["name"];
+        $map = $key["mt"]["mp"];
         if (!array_key_exists($map, $win_per_map)) {
             $win_per_map[$map] = [0, 0];
         }
