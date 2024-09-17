@@ -2,7 +2,7 @@
 
 include_once "map_winrate_functions.php";
 
-function get_winrate_json()
+function get_map_winrate_json()
 {
     $map_winrate = get_map_winrate();
     $map_winrate_json = json_encode($map_winrate);
@@ -10,5 +10,5 @@ function get_winrate_json()
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
-    echo get_winrate_json();
+    echo get_map_winrate_json();
 }
