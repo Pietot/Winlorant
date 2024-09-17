@@ -16,6 +16,7 @@ h1 {
 
 .chart-container {
   width: 90%;
+  aspect-ratio: 16/9;
   margin: 0 auto;
 }
 
@@ -23,7 +24,6 @@ h1 {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 20px;
   background-color: #292c34;
   height: 150px;
 }
@@ -67,7 +67,7 @@ h1 {
   width: 100%;
 }
 
-.user{
+.user {
   cursor: default;
 }
 
@@ -97,5 +97,11 @@ h1 {
   justify-content: center;
   color: white;
   font-size: 30px;
-  margin-top: 100px;
+  margin-top: 40px;
+  margin-bottom: 80px;
+}
+
+#dailyChart,
+#mapChart {
+  cursor: pointer;
 }
