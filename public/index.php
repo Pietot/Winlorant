@@ -28,7 +28,7 @@ if ($userdata) {
             <a class="home" href="index.php">Winlorant Tracker</a>
         </div>
         <div class="header-links">
-            <a class="about" href="about.html">About</a>
+            <a class="about" href="about.php">About</a>
         </div>
         <div class="header-links">
             <a class="contact" href="contact.html">Contact</a>
@@ -74,7 +74,7 @@ if ($userdata) {
         echo '<script src="js/chart_configuration.js"></script>';
         echo '<script src="js/scroll.js"></script>';
     } else {
-        echo '<div class="welcome-container">';
+        echo '<div class="text-container">';
         echo '<h1>Welcome to Winlorant Tracker</h1>';
         echo '<p>Winlorant Tracker is a simple tool that allows you to track lifetime stats like your winrate or headshots per day and your winrate per map.</p>';
         echo '<p>Start by register / login to start tracking your ranked stats.</p>';
