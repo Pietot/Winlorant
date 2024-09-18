@@ -32,7 +32,7 @@ if ($userdata) {
             <a class="about" href="about.php">About</a>
         </div>
         <div class="header-links">
-            <a class="contact" href="contact.html">Contact</a>
+            <a class="contact" href="contact.php">Contact</a>
         </div>
         <?php
         if ($userdata) {
