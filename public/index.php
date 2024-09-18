@@ -51,7 +51,7 @@ if ($userdata) {
     <?php
     if ($userdata) {
         include_once '../src/php/winrate_functions.php';
-        echo '<div class="text-container">';
+        echo '<div>';
         echo '<p class="text-info">' . get_number_game($_SESSION['username'], $_SESSION['tag']) . ' games tracked. This number will be updated each day at ~00:00 UTC</p>';
         echo '</div>';
         echo '<div class="chart-container">';
