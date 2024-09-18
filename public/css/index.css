@@ -71,7 +71,7 @@ h1 {
   cursor: default;
 }
 
-.welcome-container {
+.text-container {
   position: absolute;
   top: 0;
   display: flex;
@@ -84,11 +84,11 @@ h1 {
   color: white;
 }
 
-.welcome-container h1 {
+.text-container h1 {
   font-size: 40px;
 }
 
-.welcome-container p {
+.text-container p {
   font-size: 20px;
 }
 
