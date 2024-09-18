@@ -88,6 +88,10 @@ h1 {
   font-size: 40px;
 }
 
+.text-container h2 {
+  font-size: 30px;
+}
+
 .text-container p {
   font-size: 20px;
 }
