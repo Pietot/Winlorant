@@ -1,0 +1,44 @@
+.text-container a {
+  color: #3498db;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.1s ease;
+}
+
+.text-container a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: #3fb2ff;
+  transition: width 0.2s ease;
+}
+
+.text-container a:link,
+.text-container a:visited {
+  color: #3498db;
+}
+
+.text-container a:hover {
+  color: #3fb2ff;
+}
+
+.text-container a:hover::after {
+  width: 100%;
+}
+
+.text-container a:active {
+  color: #1a66bc;
+}
+
+.text-container a:active::after {
+  background-color: #1a66bc;
+  width: 100%;
+}
+
+.text-container p {
+  width: 80%;
+  text-align: center;
+}
