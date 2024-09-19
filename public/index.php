@@ -70,6 +70,7 @@ if ($userdata) {
         echo '<br>';
         echo '<br>';
         echo '<br>';
+        echo '<br>';
         echo '<script src="js/chart.min.js"></script>';
         echo '<script src="js/chart_configuration.js"></script>';
         echo '<script src="js/scroll.js"></script>';
