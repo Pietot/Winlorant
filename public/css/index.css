@@ -15,9 +15,8 @@ h1 {
 }
 
 .chart-container {
-  width: 90%;
-  aspect-ratio: 16/9;
-  margin: 0 auto;
+  width: 85%;
+  margin-left: 50px;
 }
 
 .header {
@@ -101,8 +100,8 @@ h1 {
   justify-content: center;
   color: white;
   font-size: 30px;
-  margin-top: 40px;
-  margin-bottom: 80px;
+  margin-top: 50px;
+  margin-bottom: 90px;
 }
 
 #dailyChart,
