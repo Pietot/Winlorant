@@ -12,6 +12,18 @@ dailyChart.addEventListener("mousemove", function (event) {
   }
 });
 
+function setDailyChartHeight() {
+  const dailyChart = document.getElementById("dailyChart");
+  dailyChart.style.height = window.innerHeight * 0.9 + "px";
+  const mapChart = document.getElementById("mapChart");
+  mapChart.style.height = window.innerHeight * 0.9 + "px";
+}
+
+setDailyChartHeight();
+
+window.addEventListener("resize", setDailyChartHeight);
+
+
 dailyChart.addEventListener("click", function (event) {
   const element = this;
   const rect = element.getBoundingClientRect();
@@ -29,11 +41,8 @@ dailyChart.addEventListener("click", function (event) {
   const isCenteredVertically =
     rect.top + rect.height / 2 >= viewportHeight / 2 - 10 &&
     rect.top + rect.height / 2 <= viewportHeight / 2 + 10;
-  const isCenteredHorizontally =
-    rect.left + rect.width / 2 >= viewportWidth / 2 - 10 &&
-    rect.left + rect.width / 2 <= viewportWidth / 2 + 10;
 
-  if (isCenteredVertically && isCenteredHorizontally) {
+  if (isCenteredVertically) {
     document.getElementById("mapChart").scrollIntoView({
       behavior: "smooth",
       block: "center",
@@ -52,16 +61,14 @@ document.getElementById("mapChart").addEventListener("click", function () {
   const element = this;
   const rect = element.getBoundingClientRect();
   const viewportHeight = window.innerHeight;
-  const viewportWidth = window.innerWidth;
 
   const isCenteredVertically =
     rect.top + rect.height / 2 >= viewportHeight / 2 - 10 &&
     rect.top + rect.height / 2 <= viewportHeight / 2 + 10;
-  const isCenteredHorizontally =
-    rect.left + rect.width / 2 >= viewportWidth / 2 - 10 &&
-    rect.left + rect.width / 2 <= viewportWidth / 2 + 10;
 
-  if (isCenteredVertically && isCenteredHorizontally) {
+    console.log(isCenteredVertically);
+
+  if (isCenteredVertically) {
     document.getElementById("dailyChart").scrollIntoView({
       behavior: "smooth",
       block: "center",
