@@ -15,8 +15,8 @@ h1 {
 }
 
 .chart-container {
-  width: 85%;
-  margin-left: 50px;
+  width: 90%;
+  margin: 0 auto;
 }
 
 .header {
