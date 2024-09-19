@@ -1,2 +1,1 @@
-Add filter for competitive matches or not
-Add region tu display good hours and display
+Fix hidden gridlines on the second chart when the heidht of the screen is too small 
