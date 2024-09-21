@@ -18,14 +18,14 @@ if ($userdata) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Winlorant Tracker</title>
+    <title>Winlorant</title>
     <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
 
 <body>
     <header class="header">
         <div class="header-links">
-            <a class="home" href="index.php">Winlorant Tracker</a>
+            <a class="home" href="index.php">Winlorant</a>
         </div>
         <div class="header-links">
             <a class="about" href="about.php">About</a>
@@ -86,8 +86,8 @@ if ($userdata) {
         echo '<script src="js/scroll.js"></script>';
     } else {
         echo '<div class="text-container">';
-        echo '<h1>Welcome to Winlorant Tracker</h1>';
-        echo '<p>Winlorant Tracker is a simple tool that allows you to track lifetime stats like your winrate or headshots per day and your winrate per map.</p>';
+        echo '<h1>Welcome to Winlorant</h1>';
+        echo '<p>Winlorant is a simple tool that allows you to track lifetime stats like your winrate or headshots per day and your winrate per map.</p>';
         echo '<p>Start by register / login to start tracking your ranked stats.</p>';
         echo "<p>Once you've logged (for 1 month, after you'll need to log in again), if it's the first time, we will scrap your 7 past days games</p>";
         echo "<p>Then we will update your data each day automatically.</p>";

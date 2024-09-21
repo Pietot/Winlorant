@@ -26,7 +26,7 @@ if ($userdata) {
 <body>
     <header class="header">
         <div class="header-links">
-            <a class="home" href="index.php">Winlorant Tracker</a>
+            <a class="home" href="index.php">Winlorant</a>
         </div>
         <div class="header-links">
             <a class="about" href="about.php">About</a>
