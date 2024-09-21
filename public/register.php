@@ -59,8 +59,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
                         $stmt->bindValue(':tag', $tag, PDO::PARAM_STR);
                         $stmt->bindValue(':region', $region, PDO::PARAM_STR);
                         $stmt->execute();
-                        include_once '../src/php/compress_json.php';
                         include_once '../src/php/get_data_json.php';
+                        include_once '../src/php/compress_json.php';
                         $json = get_data_json($username, $tag, $region);
                         $query = "SELECT id FROM users WHERE username = :username AND tag = :tag";
                         $stmt = $db->prepare($query);
