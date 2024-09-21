@@ -35,14 +35,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if (isset($_POST['username']) && isset($_POST['tag'])) {
                     include_once '../src/php/get_user_region.php';
-                    $database_config = include_once '../src/config/database.php';
 
-                    $host = $database_config['host'];
-                    $dbname = $database_config['dbname'];
-                    $user = $database_config['user'];
-                    $password = $database_config['password'];
-
-                    $db = new PDO("mysql:host=$host;dbname=$dbname", $user, $password);
                     $username = $_POST['username'];
                     $tag = $_POST['tag'];
                     $region = get_user_region($username, $tag);
