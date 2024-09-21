@@ -1,11 +1,11 @@
 <?php
 
-define("API_URL", "https://api.henrikdev.xyz/valorant/v1/stored-matches/");
+define("API_MATCHES", "https://api.henrikdev.xyz/valorant/v1/stored-matches/");
 
 function get_data_json(string $name, string $tag, string $region): ?array
 {
     include __DIR__ . '/db.php';
-    $url_with_key = API_URL . $region . "/" . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . $api_key . "&mode=competitive";
+    $url_with_key = API_MATCHES . $region . "/" . rawurlencode($name) . "/" . rawurlencode($tag) . "?api_key=" . $api_key . "&mode=competitive";
     $curl_handle = curl_init();
 
     // Options cURL
