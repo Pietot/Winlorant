@@ -1,6 +1,5 @@
 <?php
 
-include_once "get_data_json.php";
 include_once "data_functions.php";
 
 function get_id(): int
