@@ -1,7 +1,7 @@
 <?php
 
 include_once 'is_registered.php';
-include '../src/php/db.php';
+include 'db.php';
 
 $userdata = is_registered($db);
 
@@ -14,4 +14,4 @@ if ($userdata) {
     setcookie('region', '', -1, '/');
 }
 
-header('Location: ../index.php');
+header('Location: ../../public/index.php');
