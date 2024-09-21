@@ -1,1 +1,2 @@
 Fix hidden gridlines on the second chart when the heidht of the screen is too small 
+Update the chart without recreating it (so the update is smoother)
