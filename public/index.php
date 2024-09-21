@@ -51,8 +51,18 @@ if ($userdata) {
     <?php
     if ($userdata) {
         include_once '../src/php/winrate_functions.php';
+        include_once '../src/php/get_acts.php';
         echo '<div>';
         echo '<p class="text-info">' . get_number_game($_SESSION['username'], $_SESSION['tag']) . ' games tracked. This number will be updated each day at ~00:00 UTC</p>';
+        echo '</div>';
+        echo '<div class="select-container">';
+        echo '<select id="select" onchange="updateChart()">';
+        echo '<option value="null" selected>All time</option>';
+        $acts = get_acts();
+        foreach ($acts as $act) {
+            echo '<option value="' . $act . '">' . $act . '</option>';
+        }
+        echo '</select>';
         echo '</div>';
         echo '<div class="chart-container">';
         echo '<canvas id="dailyChart"></canvas>';
