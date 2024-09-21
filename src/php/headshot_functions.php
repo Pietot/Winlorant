@@ -12,7 +12,7 @@ function get_hits(array $data): array
     return [$headshot, $headshot + $other];
 }
 
-function get_headshot_per_day(?int $oldest = null, ?int $newest = null): array
+function get_headshot_per_day(?int $oldest = null, ?int $newest = null, ?string $act = null): array
 {
     $headshot_per_day = array(
         "Monday" => [0, 0],
@@ -30,7 +30,7 @@ function get_headshot_per_day(?int $oldest = null, ?int $newest = null): array
         $date = $key["mt"]["st"];
         $date = strtotime($date);
 
-        if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest)) {
+        if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest) || ($act !== null && $key["mt"]["s"] !== $act)) {
             continue;
         }
 

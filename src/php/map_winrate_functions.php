@@ -4,7 +4,7 @@ include_once "get_data_json.php";
 include_once "data_functions.php";
 include_once "winrate_functions.php";
 
-function get_map_winrate(?int $oldest = null, ?int $newest = null): array
+function get_map_winrate(?int $oldest = null, ?int $newest = null, ?string $act = null): array
 {
     $win_per_map = array();
     $game_json = get_json();
@@ -13,7 +13,7 @@ function get_map_winrate(?int $oldest = null, ?int $newest = null): array
         $date = $key["mt"]["st"];
         $date = strtotime($date);
 
-        if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest)) {
+        if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest) || ($act !== null && $key["mt"]["s"] !== $act)) {
             continue;
         }
 

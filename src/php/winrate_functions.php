@@ -2,11 +2,10 @@
 
 include_once "get_data_json.php";
 include_once "data_functions.php";
-include "db.php";
 
 function get_id(): int
 {
-    global $db;
+    include "db.php";
     $query = "SELECT id FROM users WHERE username = :username AND tag = :tag";
     $stmt = $db->prepare($query);
     if (session_status() === PHP_SESSION_NONE) {
@@ -44,7 +43,7 @@ function has_win(array $data): bool
     return false;
 };
 
-function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
+function get_winrate_per_day(?int $oldest = null, ?int $newest = null, ?string $act = null): array
 {
     $win_per_day = array(
         "Monday" => [0, 0],
@@ -64,7 +63,7 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null): array
         $date = $key["mt"]["st"];
         $date = strtotime($date);
 
-        if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest)) {
+        if (($oldest !== null && $date < $oldest) || ($newest !== null && $date > $newest) || ($act !== null && $key["mt"]["s"] !== $act)) {
             continue;
         }
 
