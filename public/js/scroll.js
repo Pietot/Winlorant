@@ -66,8 +66,6 @@ document.getElementById("mapChart").addEventListener("click", function () {
     rect.top + rect.height / 2 >= viewportHeight / 2 - 10 &&
     rect.top + rect.height / 2 <= viewportHeight / 2 + 10;
 
-    console.log(isCenteredVertically);
-
   if (isCenteredVertically) {
     document.getElementById("dailyChart").scrollIntoView({
       behavior: "smooth",
