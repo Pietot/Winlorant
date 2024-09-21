@@ -56,7 +56,7 @@ if ($userdata) {
         echo '<p class="text-info">' . get_number_game($_SESSION['username'], $_SESSION['tag']) . ' games tracked. This number will be updated each day at ~00:00 UTC</p>';
         echo '</div>';
         echo '<div class="select-container">';
-        echo '<select id="select" onchange="updateChart()">';
+        echo '<select id="select" onchange="updateChart(this.value)">';
         echo '<option value="null" selected>All time</option>';
         $acts = get_acts();
         foreach ($acts as $act) {
@@ -89,9 +89,9 @@ if ($userdata) {
         echo '<h1>Welcome to Winlorant Tracker</h1>';
         echo '<p>Winlorant Tracker is a simple tool that allows you to track lifetime stats like your winrate or headshots per day and your winrate per map.</p>';
         echo '<p>Start by register / login to start tracking your ranked stats.</p>';
-        echo "<p>Once you've logged (for 1 month, after you'll need to log in again), if it's the first time, we will scrap your 7 past days games'</p>";
+        echo "<p>Once you've logged (for 1 month, after you'll need to log in again), if it's the first time, we will scrap your 7 past days games</p>";
         echo "<p>Then we will update your data each day automatically.</p>";
-        echo "<p>Hope you will enjoy this small project  ^^</p>";
+        echo "<p>Hope you will enjoy this small project!</p>";
         echo '</div>';
     }
     ?>
