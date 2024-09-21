@@ -16,6 +16,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Winlorant</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.svg">
     <link rel="stylesheet" type="text/css" href="css/register.css">
 </head>
 

@@ -19,6 +19,7 @@ if ($userdata) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Winlorant</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.svg">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
 </head>
 

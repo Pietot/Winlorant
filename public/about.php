@@ -19,6 +19,7 @@ if ($userdata) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.svg">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/about.css" />
 </head>
@@ -51,7 +52,7 @@ if ($userdata) {
     </header>
     <div class="text-container">
         <h2>About the project</h2>
-        <p>Winlorant is a web application that allows you to track your winrate in Valorant. It uses the <a href="https://github.com/Henrik-3/unofficial-valorant-api" target="_blank">unofficial Henrik-3 API</a> to get your match history and calculate your winrate.</p>
+        <p>Winlorant is a web application that allows you to track your winrate in Valorant. It uses the <a href="https://github.com/Henrik-3/unofficial-valorant-api" target="_blank">unofficial Henrik-3 API</a> to get your match history to calculate your winrate and others.</p>
         <h2>How to use</h2>
         <p>First, you need to register with your Valorant username and tag. The application will then fetch your match history from the past 7 days and process the data to show it into beautiful chart.</p>
         <h2>How it works</h2>

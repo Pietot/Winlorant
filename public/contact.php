@@ -18,7 +18,8 @@ if ($userdata) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About</title>
+    <title>Contact</title>
+    <link rel="icon" type="image/x-icon" href="assets/icon.svg">
     <link rel="stylesheet" type="text/css" href="css/index.css" />
     <link rel="stylesheet" type="text/css" href="css/about.css" />
 </head>
