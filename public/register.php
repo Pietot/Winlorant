@@ -30,11 +30,28 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
                     <input type="text" class="username " id="username" name="username" placeholder="Username" maxlength="16" required>
                     <input type="text" class="tag" id="tag" name="tag" placeholder="Tag" maxlength="5" required>
                 </div>
+                <div class="checkbox">
+                    <input class="inp-cbx" id="privacy" type="checkbox" />
+                    <label class="cbx" for="privacy">
+                        <span>
+                            <svg width="12px" height="10px">
+                                <use xlink:href="#check-4"></use>
+                            </svg>
+                        </span>
+                        <span>I agree to the <a href="privacy.php" target="_blank">Privacy Policy</a>
+                            <svg class="inline-svg">
+                                <symbol id="check-4" viewbox="0 0 12 10">
+                                    <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                                </symbol>
+                            </svg>
+                        </span>
+                    </label>
+                </div>
             </div>
             <button type="submit" class="btn-submit">Register</button>
             <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            if (isset($_POST['username']) && isset($_POST['tag'])) {
+            if (isset($_POST['username']) && isset($_POST['tag']) && isset($_POST['privacy'])) {
                 include_once '../src/php/get_user_region.php';
 
                 $username = $_POST['username'];
@@ -94,6 +111,8 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
                 ]);
 
                 header('Location: index.php');
+            } else {
+                echo "<p class='error'>Please accept the privacy policy</p>";
             }
         }
             ?>
