@@ -31,7 +31,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
                     <input type="text" class="tag" id="tag" name="tag" placeholder="Tag" maxlength="5" required>
                 </div>
                 <div class="checkbox">
-                    <input class="inp-cbx" id="privacy" type="checkbox" />
+                    <input class="inp-cbx" id="privacy" type="checkbox" name="privacy"/>
                     <label class="cbx" for="privacy">
                         <span>
                             <svg width="12px" height="10px">
