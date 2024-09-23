@@ -46,20 +46,22 @@ This project is not fully done and can be improved. So if you want to contribute
 
 To install and use the website locally, you need to follow these steps:
 
- *  ### 1 - Get an API Key
+- ### 1 - Get an API Key
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To begin, go get an API key on the Henrik's <a href="https://discord.com/invite/X3GaVkX2YN">discord server</a>.
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;More infos [here](https://docs.henrikdev.xyz/valorant/changes/v4.0.0)</a>.
 
- * ### 2 - Download the source code
+- ### 2 - Download the source code
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After this, clone the project with the folowing command (recommended):
 
 ```bash
 git clone git@github.com:Pietot/Winrate-tracker.git
 ```
+
 or
+
 ```bash
 git clone https://github.com/Pietot/Winrate-tracker.git
 ```
@@ -68,18 +70,17 @@ git clone https://github.com/Pietot/Winrate-tracker.git
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Or download the source code directly as a zip file <a href="https://github.com/Pietot/Winrate-tracker/archive/refs/heads/main.zip">here</a>.
 
- * ### 3 - Import the database
+- ### 3 - Import the database
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then, startup your local webserver (WAMP | XAMPP | LAMP | MAMP)
- 
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Go to `localhost/phpmyadmin` on any web browser and connect
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create a new database and name it `winlorant`
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Then select the database, go to import at the top and select the file at `src/config/winlorant.sql`
 
-
- * ### 4 - Setup the .env file
+- ### 4 - Setup the .env file
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next, go to `src/config` and create a file named `.env`
 
@@ -93,12 +94,45 @@ DB_PASSWORD={the password used to connect in phpmyadmin}
 API_KEY={the api you got at step 1}
 ```
 
- * ### 5 - Create the json folder
+- ### 5 - Create the json folder
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finally, just create a folder name `json` in `src/`
 
 That's all! Now you can use the website and modify it as you want!
 
-5 - Privacy Policy
+## 5 - Privacy Policy
 
-The website is not uploaded yet, so there is no privacy policy for now.
+The website only stores your Valorant game name, tag and region (that are hashed in database) and the only usefull data that is stored is your match history to calculate your winrate and others.
+
+Here's an example of the data stored:
+
+```json
+{
+  "data": [
+    {
+      "meta": {
+        "map": "Abyss",
+        "start": "2024-08-30T13:27:09.993Z"
+      },
+      "stats": {
+        "team": "Red",
+        "kill": 6,
+        "assists": 4,
+        "shots": {
+          "head": 3,
+          "body": 20,
+          "leags": 1
+        },
+        "damage": {
+          "made": 1058,
+          "receive": 3033
+        }
+      },
+      "teams": {
+        "red": 10,
+        "blue": 13
+      }
+    }
+  ]
+}
+```
