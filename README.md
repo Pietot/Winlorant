@@ -112,7 +112,8 @@ Here's an example of the data stored:
     {
       "meta": {
         "map": "Abyss",
-        "start": "2024-08-30T13:27:09.993Z"
+        "start": "2024-08-30T13:27:09.993Z",
+        "season": "e5a2",
       },
       "stats": {
         "team": "Red",
