@@ -33,7 +33,7 @@ if (!function_exists('load_env')) {
     }
 }
 
-if (!isset($_ENV['DB_HOST']) || !isset($_ENV['DB_NAME']) || !isset($_ENV['DB_USER']) || !isset($_ENV['DB_PASSWORD'])) {
+if (!isset($_ENV['DB_HOST']) || !isset($_ENV['DB_NAME']) || !isset($_ENV['DB_USER']) || !isset($_ENV['DB_PASSWORD']) || !isset($_ENV['API_KEY'])) {
     load_env(__DIR__ . '/.env');
 }
 
