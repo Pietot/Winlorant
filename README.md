@@ -102,7 +102,7 @@ That's all! Now you can use the website and modify it as you want!
 
 ## 5 - Privacy Policy
 
-The website only stores your Valorant game name, tag and region (that are hashed in database) and the only usefull data that is stored is your match history to calculate your winrate and others.
+The website only stores your Valorant game name, tag, region in database. The other usefull data that is stored on the server is your match history to calculate your winrate and others.
 
 Here's an example of the data stored:
 
