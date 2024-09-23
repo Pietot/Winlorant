@@ -42,7 +42,7 @@ This project is not fully done and can be improved. So if you want to contribute
 
 [Installation](#4---installation)
 
-## 4- Installation
+## 4 - Installation
 
 To install and use the website locally, you need to follow these steps:
 
