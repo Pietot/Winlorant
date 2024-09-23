@@ -54,7 +54,7 @@ To install and use the website locally, you need to follow these steps:
 
  * ### 2 - Download the source code
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After, clone the project with the folowing command (recommended):
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;After this, clone the project with the folowing command (recommended):
 
 ```bash
 git clone git@github.com:Pietot/Winrate-tracker.git
@@ -98,3 +98,7 @@ API_KEY={the api you got at step 1}
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finally, just create a folder name `json` in `src/`
 
 That's all! Now you can use the website and modify it as you want!
+
+5 - Privacy Policy
+
+The website is not uploaded yet, so there is no privacy policy for now.
