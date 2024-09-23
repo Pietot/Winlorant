@@ -38,7 +38,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
                                 <use xlink:href="#check-4"></use>
                             </svg>
                         </span>
-                        <span>I agree to the <a href="privacy.php" target="_blank">Privacy Policy</a>
+                        <span>I agree to the <a href="https://github.com/Pietot/Winrate-tracker?tab=readme-ov-file#5---privacy-policy" target="_blank">Privacy Policy</a>
                             <svg class="inline-svg">
                                 <symbol id="check-4" viewbox="0 0 12 10">
                                     <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
