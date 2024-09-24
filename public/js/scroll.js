@@ -24,7 +24,6 @@ setChartsHeight();
 
 window.addEventListener("resize", setChartsHeight);
 
-
 dailyChart.addEventListener("click", function (event) {
   const element = this;
   const rect = element.getBoundingClientRect();
@@ -37,7 +36,6 @@ dailyChart.addEventListener("click", function (event) {
   }
 
   const viewportHeight = window.innerHeight;
-  const viewportWidth = window.innerWidth;
 
   const isCenteredVertically =
     rect.top + rect.height / 2 >= viewportHeight / 2 - 10 &&
