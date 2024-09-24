@@ -12,16 +12,17 @@ dailyChart.addEventListener("mousemove", function (event) {
   }
 });
 
-function setDailyChartHeight() {
+function setChartsHeight() {
+  height = window.innerHeight * 0.9 + "px";
   const dailyChart = document.getElementById("dailyChart");
-  dailyChart.style.height = window.innerHeight * 0.9 + "px";
+  dailyChart.style.height = height;
   const mapChart = document.getElementById("mapChart");
-  mapChart.style.height = window.innerHeight * 0.9 + "px";
+  mapChart.style.height = height;
 }
 
-setDailyChartHeight();
+setChartsHeight();
 
-window.addEventListener("resize", setDailyChartHeight);
+window.addEventListener("resize", setChartsHeight);
 
 
 dailyChart.addEventListener("click", function (event) {
