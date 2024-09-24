@@ -96,7 +96,7 @@ API_KEY={the api you got at step 1}
 
 - ### 5 - Create the json folder
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finally, just create a folder name `json` in `src/`
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Finally, just create a folder named `json` in `src/`
 
 That's all! Now you can use the website and modify it as you want!
 
