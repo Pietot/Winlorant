@@ -1,3 +1,12 @@
-Fix hidden gridlines on the second chart when the heidht of the screen is too small 
-Update the chart without recreating it (so the update is smoother)
-Do the responsive for the mobile and tablet
+Priority:
+    Fix hidden gridlines on the second chart when the heidht of the screen is too small 
+    Update the chart without recreating it (so the update is smoother)
+    Do the responsive for the mobile and tablet
+
+General:
+    Add a new features to the chart  (e.g. add a new type of chart, add a new filter, etc.)
+    Add more charts with other data
+    Improve UI/UX of the page
+    Improve the code quality
+    Add comments to the code if needed
+    Improve the performance/security of the code
