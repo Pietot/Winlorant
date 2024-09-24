@@ -36,7 +36,6 @@ h1 {
   position: relative;
   text-decoration: none;
   color: white;
-  padding-bottom: 5px;
   font-size: 40px;
   z-index: 1;
 }
@@ -126,7 +125,6 @@ h1 {
   margin: 0 auto;
 }
 
-
 #select:active {
   outline: none;
   border-color: #7a7d8b;
@@ -136,4 +134,132 @@ h1 {
 #dailyChart,
 #mapChart {
   cursor: pointer;
+}
+
+@media screen and (max-width: 1440px) {
+  .header {
+    height: 100px;
+  }
+
+  .home,
+  .register,
+  .user,
+  .signout,
+  .about,
+  .contact {
+    font-size: 30px;
+  }
+
+  .text-container h1 {
+    font-size: 30px;
+  }
+
+  .text-container h2 {
+    font-size: 20px;
+  }
+
+  .text-container p {
+    font-size: 15px;
+  }
+
+  .text-info {
+    font-size: 20px;
+    margin-top: 40px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    height: 80px;
+  }
+
+  .home,
+  .register,
+  .user,
+  .signout,
+  .about,
+  .contact {
+    font-size: 20px;
+  }
+
+  .text-container h1 {
+    font-size: 20px;
+  }
+
+  .text-container h2 {
+    font-size: 15px;
+  }
+
+  .text-container p {
+    font-size: 10px;
+  }
+
+  .text-info {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    height: 60px;
+  }
+
+  .home,
+  .register,
+  .user,
+  .signout,
+  .about,
+  .contact {
+    font-size: 15px;
+  }
+
+  .text-container h1 {
+    font-size: 15px;
+  }
+
+  .text-container h2 {
+    font-size: 10px;
+  }
+
+  .text-container p {
+    font-size: 5px;
+  }
+
+  .text-info {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header {
+    height: 50px;
+  }
+
+  .home,
+  .register,
+  .user,
+  .signout,
+  .about,
+  .contact {
+    font-size: 10px;
+  }
+
+  .text-container h1 {
+    font-size: 10px;
+  }
+
+  .text-container h2 {
+    font-size: 5px;
+  }
+
+  .text-container p {
+    font-size: 3px;
+  }
+
+  .text-info {
+    margin-top: 10px;
+    font-size: 10px;
+  }
+  
 }
