@@ -54,7 +54,7 @@ if ($userdata) {
         include_once '../src/php/winrate_functions.php';
         include_once '../src/php/get_acts.php';
         echo '<div>';
-        echo '<p class="text-info">' . get_number_game($_SESSION['username'], $_SESSION['tag']) . ' games tracked. This number will be updated each day at ~00:00 UTC</p>';
+        echo '<p class="text-info">' . get_number_game() . ' games tracked. This number will be updated each day at ~00:00 UTC</p>';
         echo '</div>';
         echo '<div class="select-container">';
         echo '<select id="select" onchange="updateChart(this.value)">';
