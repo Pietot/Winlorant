@@ -53,6 +53,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['tag'])) {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (isset($_POST['username']) && isset($_POST['tag']) && isset($_POST['privacy'])) {
                 include_once '../src/php/get_user_region.php';
+                include '../src/php/db.php';
 
                 $username = $_POST['username'];
                 $tag = $_POST['tag'];
