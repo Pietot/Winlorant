@@ -82,9 +82,7 @@ git clone https://github.com/Pietot/Winrate-tracker.git
 
 - ### 4 - Setup the .env file
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next, go to `src/config` and create a file named `.env`
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Inside this file, copy this:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Next, go to `src/config/.env` and fill up the blanks with your informations:
 
 ```env
 DB_HOST=localhost
