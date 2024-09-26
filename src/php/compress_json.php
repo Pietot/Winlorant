@@ -7,7 +7,9 @@ function compress(int $id): void
     $data = json_decode($json, true);
     $simplified_data = [];
 
-    foreach ($data['data'] as $item) {
+    $data_key = isset($data['data']) ? 'data' : 'dt';
+
+    foreach ($data[$data_key] as $item) {
         $simplified_data[] = [
             'mt' => [
                 'mp' => $item['meta']['map']['name'],
