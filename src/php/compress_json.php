@@ -24,7 +24,7 @@ function compress(int $id): void
                     'b' => $item['stats']['shots']['body'],
                     'l' => $item['stats']['shots']['leg']
                 ],
-                'd' => [
+                'dmg' => [
                     'm' => $item['stats']['damage']['made'],
                     'r' => $item['stats']['damage']['received']
                 ]
@@ -36,7 +36,7 @@ function compress(int $id): void
         ];
     }
 
-    $simplified_json = json_encode(['d' => $simplified_data], 0);
+    $simplified_json = json_encode(['dt' => $simplified_data], 0);
     $simplified_gz = gzencode($simplified_json);
     file_put_contents(__DIR__ . "/../json/$id.json.gz", $simplified_gz);
 }

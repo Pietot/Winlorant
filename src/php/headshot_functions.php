@@ -26,7 +26,7 @@ function get_headshot_per_day(?int $oldest = null, ?int $newest = null, ?string 
 
     $game_json = get_json();
 
-    foreach ($game_json["d"] as $key) {
+    foreach ($game_json['dt'] as $key) {
         $date = $key["mt"]["st"];
         $date = strtotime($date);
 

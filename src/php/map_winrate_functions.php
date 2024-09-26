@@ -9,7 +9,7 @@ function get_map_winrate(?int $oldest = null, ?int $newest = null, ?string $act 
     $win_per_map = array();
     $game_json = get_json();
 
-    foreach ($game_json["d"] as $key) {
+    foreach ($game_json['dt'] as $key) {
         $date = $key["mt"]["st"];
         $date = strtotime($date);
 

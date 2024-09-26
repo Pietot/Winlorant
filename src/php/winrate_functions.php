@@ -29,7 +29,7 @@ function get_json(): array
 function get_number_game()
 {
     $game_json = get_json();
-    return count($game_json['d']);
+    return count($game_json['dt']);
 }
 
 function has_win(array $data): bool
@@ -40,7 +40,8 @@ function has_win(array $data): bool
         return true;
     }
     return false;
-};
+}
+;
 
 function get_winrate_per_day(?int $oldest = null, ?int $newest = null, ?string $act = null): array
 {
@@ -58,7 +59,7 @@ function get_winrate_per_day(?int $oldest = null, ?int $newest = null, ?string $
     $totalGames = 0;
     $game_json = get_json();
 
-    foreach ($game_json["d"] as $key) {
+    foreach ($game_json['dt'] as $key) {
         $date = $key["mt"]["st"];
         $date = strtotime($date);
 
